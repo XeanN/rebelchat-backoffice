@@ -8,7 +8,7 @@ CopyWebpackPlugin = require('copy-webpack-plugin');
 const babelSettings = JSON.parse(fs.readFileSync(".babelrc"))
 const config = {
 	entry: [
-		'./app/main.jsx'
+		'./app/client2.js'
 	],
 	module: {
 		loaders: [

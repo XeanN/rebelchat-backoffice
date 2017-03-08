@@ -7,7 +7,6 @@ import Login from './components/login';
 
 
 //FOR CHUNK NAMES AND ES6 YOU SHOULD PUT "DEFAULT"
-
 export default (
 	<Route path="/" component={App} >
 		<IndexRoute component={Login} />
