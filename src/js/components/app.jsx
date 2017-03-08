@@ -1,7 +1,7 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import ReactMDL from 'react-mdl';
+import ReactMDL from 'react-mdl';
 
 injectTapEventPlugin();
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route,IndexRoute } from 'react-router';
 import App from './app';
-import Login from './components/login';
+import Login from './login';
 // import NotFound from './components/common/notfound';
 
 
@@ -18,7 +18,7 @@ export default (
 			path="*"
 			getComponent={(nextState, cb) => {
 				require.ensure([], require => {
-					cb(null, require('./components/common/notfound').default)
+					cb(null, require('./common/notfound').default)
 				}, 'NotFound')
 			}}
 		/>

@@ -5,10 +5,10 @@ HtmlWebpackPlugin = require('html-webpack-plugin'),
 CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /* babel */
-const babelSettings = JSON.parse(fs.readFileSync(".babelrc"))
+const babelSettings = JSON.parse(fs.readFileSync(".babelrc"));
 const config = {
 	entry: [
-		'./app/client2.js'
+		'./src/js/index.js'
 	],
 	module: {
 		loaders: [
