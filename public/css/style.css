@@ -1,3 +1,12 @@
 h1{
-  color:red;
+	color:red;
+}
+
+.logo_title {
+	margin: 10px;
+	font-size: 18px;
+}
+
+.left-menu-option {
+	color:white !important;
 }
