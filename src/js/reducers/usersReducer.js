@@ -5,22 +5,29 @@ export default function reducer(
 		list: [],
 		fetching: false,
 		fetched: false,
-		error: null,
-		firstLoad: false
+		error: null
 	},
 	action
 ){
 	switch (action.type) {
+		case 'GET_USERS_PENDING':
+			return {
+				...state,
+				fetching: true
+			}
 		case 'GET_USERS_FULFILLED':
 			return {
 				...state,
 				fetching: false,
-				list: state.list.concat(action.payload)
+				fetched: true,
+				list: action.payload
 			};
 			break;
 		case 'GET_USERS_REJECTED':
 			return {
 				...state,
+				fetching: false,
+				fetched: false,
 				error: action.payload
 			};
 			break;
