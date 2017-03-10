@@ -10,7 +10,9 @@ export default class Main extends React.Component{
 	render(){
 		return (
 			<main className="mdl-layout__content mdl-color--grey-100">
-				{this.props.children}
+				<div className="mdl-layout__tab-panel is-active">
+					{this.props.children}
+				</div>
 			</main>
 		);
 	}

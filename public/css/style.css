@@ -1,10 +1,36 @@
-h1{
-	color:red;
+.body-chat main > .mdl-layout__tab-panel{
+	padding: 8px;
+	padding-top: 28px;
+}
+
+.body-chat .mdl-card .mdl-card__supporting-text {
+	margin: 40px;
+	-webkit-flex-grow: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+	padding: 0;
+	color: inherit;
+	width: calc(100% - 80px);
+}
+
+.body-chat section .section__circle-container > .section__circle-container__circle {
+	width: 64px;
+	height: 64px;
+	border-radius: 32px;
+	margin: 8px 0;
 }
 
 .logo_title {
-	margin: 10px;
 	font-size: 18px;
+}
+
+.rules-icon {
+	margin-right: 10px;
+}
+
+.logo-sidebar{
+	height: 50px;
+	padding: 10px 10px 5px 10px;
 }
 
 .left-menu-option {

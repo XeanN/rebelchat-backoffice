@@ -17,11 +17,9 @@ export default class Header extends React.Component {
 						Welcome Admin
 					</span>
 					<div className="mdl-layout-spacer"></div>
-					<div className="android-navigation-container">
-						<a href="#" title="settings">
-							<i className="material-icons">settings</i>
-						</a>
-					</div>
+					<button className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+						<i className="material-icons">settings</i>
+					</button>
 				</div>
 			</header>
 		);

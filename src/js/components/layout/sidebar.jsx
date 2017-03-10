@@ -11,7 +11,7 @@ export default class Sidebar extends React.Component {
 		return (
 			<div className="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50 mCustomScrollbar">
 				<header className="demo-drawer-header mdl-color--blue-grey-600">
-						<img src="../../../../images/logo.png" height="60px" />
+						<img src="../../../../images/logo.png" className="logo-sidebar"/>
 						<span className="logo_title">
 							 <b>RebelStack Chat</b>
 						</span>
@@ -23,7 +23,6 @@ export default class Sidebar extends React.Component {
 							<span className="fa fa-video-camera fa-lg" role="presentation"></span>
 							&nbsp;&nbsp;&nbsp; Videos
 						</a>
-						<div className="mdl-layout-spacer mdl-color--white"></div>
 						<a className="left-menu-option mdl-navigation__link" href='#'>
 							<span className="fa fa-inbox fa-lg" role="presentation"></span>
 							&nbsp;&nbsp;&nbsp; Inventory
@@ -37,6 +36,35 @@ export default class Sidebar extends React.Component {
 							<span className="fa fa-area-chart fa-lg" role="presentation"></span>
 							&nbsp;&nbsp;&nbsp; Analytics
 						</a>
+						<a className="left-menu-option mdl-navigation__link" href='#'>
+							<span className="fa fa-area-chart fa-lg" role="presentation"></span>
+							&nbsp;&nbsp;&nbsp; Analytics
+						</a>
+						<a className="left-menu-option mdl-navigation__link" href='#'>
+							<span className="fa fa-area-chart fa-lg" role="presentation"></span>
+							&nbsp;&nbsp;&nbsp; Analytics
+						</a>
+						<a className="left-menu-option mdl-navigation__link" href='#'>
+							<span className="fa fa-area-chart fa-lg" role="presentation"></span>
+							&nbsp;&nbsp;&nbsp; Analytics
+						</a>
+						<a className="left-menu-option mdl-navigation__link" href='#'>
+							<span className="fa fa-area-chart fa-lg" role="presentation"></span>
+							&nbsp;&nbsp;&nbsp; Analytics
+						</a>
+						<a className="left-menu-option mdl-navigation__link" href='#'>
+							<span className="fa fa-area-chart fa-lg" role="presentation"></span>
+							&nbsp;&nbsp;&nbsp; Analytics
+						</a>
+						<a className="left-menu-option mdl-navigation__link" href='#'>
+							<span className="fa fa-area-chart fa-lg" role="presentation"></span>
+							&nbsp;&nbsp;&nbsp; Analytics
+						</a>
+						<a className="left-menu-option mdl-navigation__link" href='#'>
+							<span className="fa fa-inbox fa-lg" role="presentation"></span>
+							&nbsp;&nbsp;&nbsp; Inventory
+						</a>
+						<div className="mdl-layout-spacer mdl-color--white"></div>
 					</div>
 					<div className="mdl-layout-spacer"></div>
 				</nav>
