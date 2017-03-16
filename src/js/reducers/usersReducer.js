@@ -10,6 +10,20 @@ export default function reducer(
 	action
 ){
 	switch (action.type) {
+		case 'USER_NEW_MESSAGES_FULFILLED':
+			return{
+				...state,
+				list: state.list.map(user =>{
+					if ( user.id == action.payload.id) {
+						return {
+							...user,
+							unreadMessage: user.unreadMessage + 1
+						}
+					}
+					return user;
+				})
+			}
+			break;
 		case 'USER_UNREAD_MESSAGES_FULFILLED':
 			return{
 				...state,

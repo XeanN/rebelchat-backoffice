@@ -12,9 +12,8 @@ export default class UserHelper{
 				if (!temp) {
 					let obj = userObj[key];
 					obj.id = key;
-					//FLAGS TO THE USER, CHECK IF THE ARE OLD UNREAD MESSAGE AND NEW MESSAGES
+					//FLAGS TO THE USER, CHECK IF THE ARE OLD UNREAD MESSAGE OR  NEW MESSAGES
 					obj.unreadMessage = 0;
-					obj.newMessages = 0
 					users.push(obj);
 				}
 			});

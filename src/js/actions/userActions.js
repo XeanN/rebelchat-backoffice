@@ -4,33 +4,49 @@ import Helpers from './helpers';
 
 const UserHelper = Helpers.UserHelper;
 
-export function countUnreadMessageByUser(userId) {
+export function countMessageByUser(userId) {
+	const path = '/messages/' + userId  +'/';
 	return function(dispatch) {
-		try {
-			let path = '/messages/' + userId  +'/'
-			let clientsRef = database.ref(path).orderByChild('createdAt').once('value', function(snap){
-
-				dispatch(
-					{
-						type: "USER_UNREAD_MESSAGES_FULFILLED",
-						payload: {
-							id: userId,
-							unreadMessage: UserHelper.countUnreadMessage(snap.val())
-						}
-					}
-				);
-			});
-		} catch (e) {
-			console.error('countUnreadMessageByUser Exception', e);
+		let clientsRef = database.ref(path).orderByChild('createdAt').on('child_added', function(snap){
 			dispatch(
 				{
-					type: "USER_UNREAD_MESSAGES_REJECTED",
-					payload: e
+					type: "USER_NEW_MESSAGES_FULFILLED",
+					payload: {
+						id: userId
+					}
 				}
 			);
-		}
+		});
 	}
 }
+
+// export function countUnreadMessageByUser(userId) {
+// 	return function(dispatch) {
+// 		try {
+// 			const path = '/messages/' + userId  +'/'
+// 			let clientsRef = database.ref(path).orderByChild('createdAt').once('value', function(snap){
+//
+// 				dispatch(
+// 					{
+// 						type: "USER_UNREAD_MESSAGES_FULFILLED",
+// 						payload: {
+// 							id: userId,
+// 							unreadMessage: UserHelper.countUnreadMessage(snap.val())
+// 						}
+// 					}
+// 				);
+// 			});
+// 		} catch (e) {
+// 			console.error('countUnreadMessageByUser Exception', e);
+// 			dispatch(
+// 				{
+// 					type: "USER_UNREAD_MESSAGES_REJECTED",
+// 					payload: e
+// 				}
+// 			);
+// 		}
+// 	}
+// }
 
 
 export function getUsers() {

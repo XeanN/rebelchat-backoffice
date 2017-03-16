@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ContactBadge from "../common/contactBadge";
 import { connect } from "react-redux";
-import { countUnreadMessageByUser } from "../../actions/userActions";
+import { countUnreadMessageByUser, countMessageByUser } from "../../actions/userActions";
 
 @connect((store) => {
 	return {
@@ -20,7 +20,8 @@ export default class ContactLink extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.dispatch(countUnreadMessageByUser(this.state.userId));
+		// this.props.dispatch(countUnreadMessageByUser(this.state.userId));
+		this.props.dispatch(countMessageByUser(this.state.userId));
 	}
 
 	render() {
@@ -36,7 +37,7 @@ export default class ContactLink extends React.Component {
 				href={'#'}>
 					<span className="fa fa-inbox fa-lg" role="presentation"></span>
 					&nbsp;&nbsp;&nbsp;{this.state.label}
-					<ContactBadge count={user.unreadMessage}/>
+					<ContactBadge count={ user.unreadMessage }/>
 			</a>
 		)
 	}
