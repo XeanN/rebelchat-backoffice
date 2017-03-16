@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
-import { getUsers } from "../../actions/userActions";
+import { getUsers, onChangeUsers } from "../../actions/userActions";
 import Spinner from "../common/spinner";
+import ContactLink from "../common/contactLink";
 
 const DEFAULT_ERROR_MESSAGE = "There was a problem loading the users";
 
@@ -22,6 +23,7 @@ export default class Sidebar extends React.Component {
 
 	componentWillMount() {
 		this.props.dispatch(getUsers());
+		this.props.dispatch(onChangeUsers());
 	}
 
 	reloadUsers(){
@@ -62,18 +64,23 @@ export default class Sidebar extends React.Component {
 		return body;
 	}
 
+	sortUsers(users) {
+		 return Array.prototype.sort.call(users, function(a, b) {
+			return new Date(b.lastActivity) - new Date(a.lastActivity);
+		});
+	}
+
 	renderUserList(fetching, users) {
 		let usersRender = [];
-		users.forEach((user, index) =>{
+		var usersSorted	= this.sortUsers(users);
+		usersSorted.forEach((user, index) =>{
 			if ( user.email && user.name ){
 				usersRender.push(
-					<a
+					<ContactLink
+						label={user.email}
 						key={index}
-						className="left-menu-option mdl-navigation__link"
-						href={'#'}>
-						<span className="fa fa-inbox fa-lg" role="presentation"></span>
-						&nbsp;&nbsp;&nbsp;{user.email}
-					</a>
+						userId={user.id}
+					/>
 				)
 			}
 		});
@@ -89,7 +96,7 @@ export default class Sidebar extends React.Component {
 		)
 	}
 
-	render(){
+	render() {
 		const {users, fetching, fetched, error} = this.props;
 		let body = null;
 
