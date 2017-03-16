@@ -1,5 +1,8 @@
 "use strict";
 import database from "../firebase";
+import Helpers from './helpers';
+
+const UserHelper = Helpers.UserHelper;
 
 export function getUsers() {
 	return function(dispatch) {
@@ -9,26 +12,16 @@ export function getUsers() {
 			}
 		);
 		try {
-				setTimeout(function(){
-					if ( true ) {
-						dispatch(
-							{
-								type: "GET_USERS_REJECTED",
-								payload: 'error'
-							}
-						);
+			var clientsRef = database.ref('clients').orderByChild('-lastActivity').once('value', function(snap){
+				dispatch(
+					{
+						type: "GET_USERS_FULFILLED",
+						payload: UserHelper.transformObjectToArray(snap.val())
 					}
-					// var clientsRef = database.ref('clients').orderByChild('-lastActivity').once('value', function(snap){
-					// 	dispatch(
-					// 		{
-					// 			type: "GET_USERS_FULFILLED",
-					// 			payload: snap.val()
-					// 		}
-					// 	);
-					// });
-				}, 2000);
+				);
+			});
 		} catch (e) {
-			console.log('====>', e);
+			console.error('GetUsers Exception', e);
 			dispatch(
 				{
 					type: "GET_USERS_REJECTED",

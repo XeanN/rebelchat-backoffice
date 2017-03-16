@@ -62,7 +62,21 @@ export default class Sidebar extends React.Component {
 		return body;
 	}
 
-	renderUserList(fetching) {
+	renderUserList(fetching, users) {
+		let usersRender = [];
+		users.forEach((user, index) =>{
+			if ( user.email && user.name ){
+				usersRender.push(
+					<a
+						key={index}
+						className="left-menu-option mdl-navigation__link"
+						href={'#'}>
+						<span className="fa fa-inbox fa-lg" role="presentation"></span>
+						&nbsp;&nbsp;&nbsp;{user.email}
+					</a>
+				)
+			}
+		});
 		return (
 			<div className="users-container">
 				<div>
@@ -70,6 +84,7 @@ export default class Sidebar extends React.Component {
 					<div className="mdl-layout-spacer mdl-color--white"></div>
 				</div>
 				<div className="mdl-layout-spacer"></div>
+				{usersRender}
 			</div>
 		)
 	}
@@ -81,7 +96,7 @@ export default class Sidebar extends React.Component {
 		if ( error ) {
 			body = this.renderErrorUserList(error, fetching);
 		} else {
-			body = this.renderUserList(fetching);
+			body = this.renderUserList(fetching, users);
 		}
 
 		return (
