@@ -42,7 +42,7 @@ export default class ContactLink extends React.Component {
 		return (
 			<a
 				className="left-menu-option mdl-navigation__link"
-				href={'#' + this.state.userId}>
+				href={'#lobby/messages/' + this.state.userId}>
 					<span className="fa fa-inbox fa-lg" role="presentation"></span>
 					&nbsp;&nbsp;&nbsp;{this.state.label}
 					<ContactBadge count={counter}/>

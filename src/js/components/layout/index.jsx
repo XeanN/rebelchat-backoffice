@@ -17,7 +17,12 @@ export default class Layout extends React.Component {
 				<Sidebar/>
 				<Header/>
 				<Container>
-					{ this.props.children }
+					{
+						this.props.children ?
+							this.props.children
+						:
+							<h1> Empty </h1>
+					}
 				</Container>
 			</div>
 		);

@@ -4,6 +4,7 @@ import { Route,IndexRoute } from 'react-router';
 import App from './app';
 import Login from './login';
 import Home from './home';
+import Messages from './messages';
 import Layout from './layout';
 import Helpers from '../helpers';
 
@@ -22,6 +23,10 @@ export default (
 			path="/lobby"
 			component={Layout}
 		>
+			<Route
+				path="messages/:id"
+				component={ Messages }
+			/>
 			<Route
 				path="home"
 				component={ Home }

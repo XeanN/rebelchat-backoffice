@@ -23,41 +23,33 @@ export default class Sidebar extends React.Component {
 		this.props.dispatch(onUsersAdded());
 	}
 
-	reloadUsers(){
+	reloadUsers() {
 		this.props.dispatch(getUsers());
 	}
 
-	renderErrorUserList(error /*,fetching*/) {
+	renderErrorUserList( error ) {
 		let body = null;
-
-		// if ( fetching ) {
-		// 	body = (
-		// 		<Spinner label="Loading Users" show={fetching} ref="spinner"/>
-		// 	);
-		// } else {
-			body = (
-				<div className="container-options">
-					<a
-						href="#"
-						title="Reload users"
-						onClick={this.reloadUsers.bind(this)}
-					>
-						<i className="material-icons">replay</i>
-					</a>
-					<div className="users-container-error">
-						<p>
-							<i className="material-icons">report_problem</i>
-						</p>
-						<span>
-							<b>
-								{DEFAULT_ERROR_MESSAGE}
-							</b>
-						</span>
-					</div>
+		body = (
+			<div className="container-options">
+				<a
+					href="#"
+					title="Reload users"
+					onClick={this.reloadUsers.bind(this)}
+				>
+					<i className="material-icons">replay</i>
+				</a>
+				<div className="users-container-error">
+					<p>
+						<i className="material-icons">report_problem</i>
+					</p>
+					<span>
+						<b>
+							{DEFAULT_ERROR_MESSAGE}
+						</b>
+					</span>
 				</div>
-			);
-		// }
-
+			</div>
+		);
 		return body;
 	}
 
@@ -76,51 +68,31 @@ export default class Sidebar extends React.Component {
 		});
 	}
 
-	renderUserList(/*fetching,*/ users) {
-		// if ( users && Object.keys(users).length > 0 ) {
-			let usersRender = [];
-			const usersSorted	= this.sortUsers(users);
-			// var usersSorted	= users
-			// console.log('====>', usersSorted);
-			//
-			//
-			// const keys = Object.keys(users);
-			// keys.forEach( (key, index) =>{
-			// 	if ( key != "error" ) {
-			// 		usersRender.push(
-			// 			<ContactLink
-			// 				label={users[key].email}
-			// 				key={index}
-			// 				userId={key}
-			// 			/>
-			// 		)
-			// 	}
-			// })
-			usersSorted.forEach((user, index) =>{
-				usersRender.push(
-					<ContactLink
-						label={user.email}
-						key={user.id}
-						userId={user.id}
-						/>
-				)
-			});
-			// <Spinner label="Loading Users" show={fetching} ref="spinner"/>
-			return (
-				<div className="users-container">
-					<div>
-						<div className="mdl-layout-spacer mdl-color--white"></div>
-					</div>
-					<div className="mdl-layout-spacer"></div>
-					{usersRender}
-				</div>
+	renderUserList( users ) {
+		let usersRender = [];
+		const usersSorted	= this.sortUsers(users);
+		usersSorted.forEach((user, index) =>{
+			usersRender.push(
+				<ContactLink
+					label={user.email}
+					key={user.id}
+					userId={user.id}
+					/>
 			)
-		// }
+		});
+		return (
+			<div className="users-container">
+				<div>
+					<div className="mdl-layout-spacer mdl-color--white"></div>
+				</div>
+				<div className="mdl-layout-spacer"></div>
+				{usersRender}
+			</div>
+		)
 	}
 
 	render() {
 		const users = this.props.users;
-		// const error = this.props.users['error'];
 
 		let body = null;
 
