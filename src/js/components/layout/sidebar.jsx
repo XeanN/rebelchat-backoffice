@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
-import { getUsers, onChangeUsers } from "../../actions/userActions";
+import { getUsers, onUsersAdded } from "../../actions/userActions";
 import Spinner from "../common/spinner";
 import ContactLink from "../common/contactLink";
 
@@ -10,8 +10,6 @@ const DEFAULT_ERROR_MESSAGE = "There was a problem loading the users";
 @connect((store) => {
 	return {
 		users: store.users.list,
-		fetching: store.users.fetching,
-		fetched: store.users.fetched,
 		error: store.users.error
 	}
 })
@@ -22,22 +20,21 @@ export default class Sidebar extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.dispatch(getUsers());
-		this.props.dispatch(onChangeUsers());
+		this.props.dispatch(onUsersAdded());
 	}
 
 	reloadUsers(){
 		this.props.dispatch(getUsers());
 	}
 
-	renderErrorUserList(error, fetching) {
+	renderErrorUserList(error /*,fetching*/) {
 		let body = null;
 
-		if ( fetching ) {
-			body = (
-				<Spinner label="Loading Users" show={fetching} ref="spinner"/>
-			);
-		} else {
+		// if ( fetching ) {
+		// 	body = (
+		// 		<Spinner label="Loading Users" show={fetching} ref="spinner"/>
+		// 	);
+		// } else {
 			body = (
 				<div className="container-options">
 					<a
@@ -59,51 +56,78 @@ export default class Sidebar extends React.Component {
 					</div>
 				</div>
 			);
-		}
+		// }
 
 		return body;
 	}
 
 	sortUsers(users) {
-		 return Array.prototype.sort.call(users, function(a, b) {
+		const keys = Object.keys(users);
+		const usersArr = [];
+		keys.forEach( key =>{
+			let obj = {
+				...users[key],
+				id: key
+			}
+			usersArr.push(obj);
+		})
+		return Array.prototype.sort.call(usersArr, function(a, b) {
 			return new Date(b.lastActivity) - new Date(a.lastActivity);
 		});
 	}
 
-	renderUserList(fetching, users) {
-		let usersRender = [];
-		var usersSorted	= this.sortUsers(users);
-		usersSorted.forEach((user, index) =>{
-			if ( user.email && user.name ){
+	renderUserList(/*fetching,*/ users) {
+		// if ( users && Object.keys(users).length > 0 ) {
+			let usersRender = [];
+			const usersSorted	= this.sortUsers(users);
+			// var usersSorted	= users
+			// console.log('====>', usersSorted);
+			//
+			//
+			// const keys = Object.keys(users);
+			// keys.forEach( (key, index) =>{
+			// 	if ( key != "error" ) {
+			// 		usersRender.push(
+			// 			<ContactLink
+			// 				label={users[key].email}
+			// 				key={index}
+			// 				userId={key}
+			// 			/>
+			// 		)
+			// 	}
+			// })
+			usersSorted.forEach((user, index) =>{
 				usersRender.push(
 					<ContactLink
 						label={user.email}
-						key={index}
+						key={user.id}
 						userId={user.id}
-					/>
+						/>
 				)
-			}
-		});
-		return (
-			<div className="users-container">
-				<div>
-					<Spinner label="Loading Users" show={fetching} ref="spinner"/>
-					<div className="mdl-layout-spacer mdl-color--white"></div>
+			});
+			// <Spinner label="Loading Users" show={fetching} ref="spinner"/>
+			return (
+				<div className="users-container">
+					<div>
+						<div className="mdl-layout-spacer mdl-color--white"></div>
+					</div>
+					<div className="mdl-layout-spacer"></div>
+					{usersRender}
 				</div>
-				<div className="mdl-layout-spacer"></div>
-				{usersRender}
-			</div>
-		)
+			)
+		// }
 	}
 
 	render() {
-		const {users, fetching, fetched, error} = this.props;
+		const users = this.props.users;
+		// const error = this.props.users['error'];
+
 		let body = null;
 
-		if ( error ) {
-			body = this.renderErrorUserList(error, fetching);
+		if ( users.error ) {
+			body = this.renderErrorUserList(error );
 		} else {
-			body = this.renderUserList(fetching, users);
+			body = this.renderUserList( users);
 		}
 
 		return (
@@ -111,7 +135,7 @@ export default class Sidebar extends React.Component {
 				<header className="demo-drawer-header mdl-color--blue-grey-600">
 						<img src="../../../../images/logo.png" className="logo-sidebar"/>
 						<span className="logo_title">
-							 <b>RebelStack Chat</b>
+							 <b>RebelChat</b>
 						</span>
 				</header>
 				<nav className="demo-navigation mdl-navigation mdl-color--blue-grey-900">

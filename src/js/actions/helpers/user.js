@@ -2,23 +2,15 @@ const fields = ['email', 'lastActivity', 'name', 'visitDate'];
 
 export default class UserHelper{
 
-	static transformObjectToArray(userObj){
-		let users = [];
-		if ( userObj ) {
-			let keys = Object.keys(userObj);
-			keys.forEach ( key => {
-				//CHECK IF THE NEW VALUE COMES FROM ONCE EVENT ON FIREBASE
-				let temp = (fields.indexOf(key) >= 0);
-				if (!temp) {
-					let obj = userObj[key];
-					obj.id = key;
-					//FLAGS TO THE USER, CHECK IF THE ARE OLD UNREAD MESSAGE OR  NEW MESSAGES
-					obj.unreadMessage = 0;
-					users.push(obj);
-				}
-			});
-		}
-		return users;
+
+	/**
+	 * static - Check if the incoming user object has the valid atributtes
+	 *
+	 * @param  {type} user description
+	 * @return {type}      description
+	 */
+	static validUserObject(user){
+		return user && user.name && user.email && user.lastActivity;
 	}
 
 	static countUnreadMessage(messagesObj) {

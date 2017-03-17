@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ContactBadge from "../common/contactBadge";
 import { connect } from "react-redux";
-import { countUnreadMessageByUser, countMessageByUser } from "../../actions/userActions";
+import { onNewMessageByUser } from "../../actions/messageActions";
 
 @connect((store) => {
 	return {
-		users: store.users.list,
+		messages: store.messages.list,
 	}
 })
 export default class ContactLink extends React.Component {
@@ -20,24 +20,32 @@ export default class ContactLink extends React.Component {
 	}
 
 	componentWillMount() {
-		// this.props.dispatch(countUnreadMessageByUser(this.state.userId));
-		this.props.dispatch(countMessageByUser(this.state.userId));
+		this.props.dispatch(onNewMessageByUser(this.state.userId));
+	}
+
+	getUserUnreadMessageCount() {
+		const messages = this.props.messages[this.state.userId];
+		let counter = 0;
+		if ( messages ) {
+			const keys = Object.keys(messages);
+			keys.forEach( key =>{
+				if ( !messages[key]. read ){
+					counter ++
+				}
+			});
+		}
+		return counter
 	}
 
 	render() {
-		const users = this.props.users;
-		//TODO VALIDATE USERS FILTER JUST IN CASE
-		const user = users.filter(user=>{
-			return user.id = this.state.userId
-		})[0];
-
+		const counter = this.getUserUnreadMessageCount();
 		return (
 			<a
 				className="left-menu-option mdl-navigation__link"
-				href={'#'}>
+				href={'#' + this.state.userId}>
 					<span className="fa fa-inbox fa-lg" role="presentation"></span>
 					&nbsp;&nbsp;&nbsp;{this.state.label}
-					<ContactBadge count={ user.unreadMessage }/>
+					<ContactBadge count={counter}/>
 			</a>
 		)
 	}

@@ -3,20 +3,23 @@
 export default function reducer(
 	state = {
 		list: {},
-		// fetching: false,
-		// fetched: false,
+		fetching: false,
+		fetched: false,
 		error: null
 	},
 	action
 ){
 	switch (action.type) {
-		case 'USERS_ADDED':
+		case 'NEW_MESSAGE':
 			return{
 				...state,
 				list: {
 					...state.list,
-					[action.payload.id]: {
-						...action.payload.user
+					[action.payload.user]: {
+						...state.list[action.payload.user],
+						[action.payload.id]: {
+							...action.payload.message
+						}
 					}
 				}
 			}
