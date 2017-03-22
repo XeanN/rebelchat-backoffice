@@ -30,6 +30,20 @@ export function onUsersAdded() {
 					}
 				}
 			);
-		} 
+		}
+	}
+}
+
+export function setSelectedUser(id, label) {
+	return function( dispatch) {
+		dispatch(
+			{
+				type: "SET_SELECTED_USER",
+				payload: {
+					id: id,
+					label: label
+				}
+			}
+		);
 	}
 }

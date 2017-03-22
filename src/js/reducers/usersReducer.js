@@ -3,7 +3,11 @@
 export default function reducer(
 	state = {
 		list: {},
-		error: null
+		error: null,
+		selectedUser: {
+			label: null,
+			id: null
+		}
 	},
 	action
 ){
@@ -11,7 +15,6 @@ export default function reducer(
 		case 'USERS_ADDED':
 			return{
 				...state,
-				fetched: false,
 				list: {
 					...state.list,
 					[action.payload.id]: {
@@ -20,6 +23,14 @@ export default function reducer(
 				}
 			}
 			break;
+		case 'SET_SELECTED_USER':
+			return{
+				...state,
+				selectedUser: {
+					label: action.payload.label,
+					id: action.payload.id,
+				}
+			}
 	}
 	return state;
 }
