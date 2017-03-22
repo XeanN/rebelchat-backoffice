@@ -7,6 +7,7 @@ import { onNewMessageByUser } from "../../actions/messageActions";
 @connect((store) => {
 	return {
 		messages: store.messages.list,
+		error: store.messages.error
 	}
 })
 export default class ContactLink extends React.Component {
@@ -29,7 +30,7 @@ export default class ContactLink extends React.Component {
 		if ( messages ) {
 			const keys = Object.keys(messages);
 			keys.forEach( key =>{
-				if ( !messages[key]. read ){
+				if ( !messages[key].read ){
 					counter ++
 				}
 			});
@@ -38,14 +39,16 @@ export default class ContactLink extends React.Component {
 	}
 
 	render() {
-		const counter = this.getUserUnreadMessageCount();
+		const error = this.props.error;
+		let counter = this.getUserUnreadMessageCount();
+
 		return (
 			<a
 				className="left-menu-option mdl-navigation__link"
 				href={'#lobby/messages/' + this.state.userId}>
 					<span className="fa fa-inbox fa-lg" role="presentation"></span>
 					&nbsp;&nbsp;&nbsp;{this.state.label}
-					<ContactBadge count={counter}/>
+					<ContactBadge count={counter} />
 			</a>
 		)
 	}

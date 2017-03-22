@@ -10,7 +10,8 @@ const DEFAULT_ERROR_MESSAGE = "There was a problem loading the users";
 @connect((store) => {
 	return {
 		users: store.users.list,
-		error: store.users.error
+		error: store.users.error,
+		fetched: store.users.fetched
 	}
 })
 export default class Sidebar extends React.Component {
@@ -92,14 +93,13 @@ export default class Sidebar extends React.Component {
 	}
 
 	render() {
-		const users = this.props.users;
-
+		const {users, error} = this.props;
 		let body = null;
 
-		if ( users.error ) {
-			body = this.renderErrorUserList(error );
+		if ( error ) {
+			body = this.renderErrorUserList( error );
 		} else {
-			body = this.renderUserList( users);
+			body = this.renderUserList( users );
 		}
 
 		return (

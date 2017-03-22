@@ -3,8 +3,6 @@
 export default function reducer(
 	state = {
 		list: {},
-		// fetching: false,
-		// fetched: false,
 		error: null
 	},
 	action
@@ -13,6 +11,7 @@ export default function reducer(
 		case 'USERS_ADDED':
 			return{
 				...state,
+				fetched: false,
 				list: {
 					...state.list,
 					[action.payload.id]: {

@@ -3,8 +3,6 @@
 export default function reducer(
 	state = {
 		list: {},
-		fetching: false,
-		fetched: false,
 		error: null
 	},
 	action
