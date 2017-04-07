@@ -146,3 +146,24 @@
 	right: 8px;
 	margin-top: 5px;
 }
+
+
+
+
+/************* CHAT **********/
+.messages-container {
+	margin: 0px;
+	max-height: 400px;
+}
+
+.message-container {
+	height: initial;
+}
+
+.item-list {
+	padding: 0px;
+}
+
+.primary-content{
+	height: initial;
+}

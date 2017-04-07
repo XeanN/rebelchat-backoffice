@@ -7,24 +7,26 @@ export default function reducer(
 		selectedUser: {
 			label: null,
 			id: null
-		}
+		},
+		selectedUserMessages: null
 	},
 	action
 ){
 	switch (action.type) {
-		case 'USERS_ADDED':
-			return{
+		case 'GET_USERS_FULFILLED':
+			return {
 				...state,
-				list: {
-					...state.list,
-					[action.payload.id]: {
-						...action.payload.user
-					}
-				}
+				list: action.payload
+			}
+			break;
+		case 'GET_USERS_MESSAGES_FULFILLED':
+			return {
+				...state,
+				selectedUserMessages: action.payload
 			}
 			break;
 		case 'SET_SELECTED_USER':
-			return{
+			return {
 				...state,
 				selectedUser: {
 					label: action.payload.label,

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ContactBadge from "../common/contactBadge";
 import { connect } from "react-redux";
 import { onNewMessageByUser } from "../../actions/messageActions";
-import { setSelectedUser } from "../../actions/userActions";
+import { setSelectedUser, getUserMessages } from "../../actions/userActions";
 
 @connect((store) => {
 	return {
@@ -24,11 +24,12 @@ export default class ContactLink extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.dispatch(onNewMessageByUser(this.state.userId));
+		// this.props.dispatch(onNewMessageByUser(this.state.userId));
 	}
 
 	handleClick() {
 		this.props.dispatch(setSelectedUser(this.state.userId, this.state.label));
+		this.props.dispatch(getUserMessages(this.state.userId));
 	}
 
 	getUserUnreadMessageCount() {
@@ -52,7 +53,7 @@ export default class ContactLink extends React.Component {
 		return (
 			<a
 				className="left-menu-option mdl-navigation__link"
-				href={'#lobby/messages/' + this.state.userId }
+				href={'#lobby/user/' + this.state.userId  +'/messages'}
 				onClick={this.handleClick}
 			>
 					<span className="fa fa-inbox fa-lg" role="presentation"></span>

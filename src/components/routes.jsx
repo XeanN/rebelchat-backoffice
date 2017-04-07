@@ -24,7 +24,7 @@ export default (
 			component={Layout}
 		>
 			<Route
-				path="messages/:id"
+				path="user/:id/messages"
 				component={ Messages }
 			/>
 			<Route

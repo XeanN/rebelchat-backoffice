@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
-import { getUsers, onUsersAdded } from "../../actions/userActions";
+import { getUsers } from "../../actions/userActions";
 import Spinner from "../common/spinner";
 import ContactLink from "../common/contactLink";
 
@@ -20,11 +20,11 @@ export default class Sidebar extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.dispatch(onUsersAdded());
+		this.props.dispatch(getUsers());
 	}
 
 	reloadUsers() {
-		this.props.dispatch(getUsers());
+		// this.props.dispatch(getUsers());
 	}
 
 	renderErrorUserList( error ) {
