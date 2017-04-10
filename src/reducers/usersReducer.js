@@ -28,10 +28,7 @@ export default function reducer(
 		case 'SET_SELECTED_USER':
 			return {
 				...state,
-				selectedUser: {
-					label: action.payload.label,
-					id: action.payload.id,
-				}
+				selectedUser: action.payload
 			}
 	}
 	return state;

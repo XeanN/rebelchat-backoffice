@@ -17,7 +17,9 @@ export default class ContactLink extends React.Component {
 		super(props);
 		this.state = {
 			label: props.label,
-			userId: props.userId
+			userId: props.userId,
+			name: props.name,
+			chatSettings: props.chatSettings
 		}
 
 		this.handleClick = this.handleClick.bind(this);
@@ -28,7 +30,7 @@ export default class ContactLink extends React.Component {
 	}
 
 	handleClick() {
-		this.props.dispatch(setSelectedUser(this.state.userId, this.state.label));
+		this.props.dispatch(setSelectedUser(this.state));
 		this.props.dispatch(getUserMessages(this.state.userId));
 	}
 
@@ -56,9 +58,9 @@ export default class ContactLink extends React.Component {
 				href={'#lobby/user/' + this.state.userId  +'/messages'}
 				onClick={this.handleClick}
 			>
-					<span className="fa fa-inbox fa-lg" role="presentation"></span>
-					&nbsp;&nbsp;&nbsp;{this.state.label}
-					<ContactBadge count={counter} />
+				<span className="fa fa-inbox fa-lg" role="presentation"></span>
+				&nbsp;&nbsp;&nbsp;{this.state.label}
+				<ContactBadge count={counter} />
 			</a>
 		)
 	}

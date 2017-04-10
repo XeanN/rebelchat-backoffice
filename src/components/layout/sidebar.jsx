@@ -77,7 +77,9 @@ export default class Sidebar extends React.Component {
 					label={user.email}
 					key={user.id}
 					userId={user.id}
-					/>
+					name={user.name}
+					chatSettings={user.chatSettings}
+				/>
 			)
 		});
 		return (

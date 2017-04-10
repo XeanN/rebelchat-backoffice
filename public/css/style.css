@@ -151,19 +151,36 @@
 
 
 /************* CHAT **********/
-.messages-container {
-	margin: 0px;
-	max-height: 400px;
+.rebelchat-message-list {
+	width: 100%;
 }
 
-.message-container {
+.rebelchat-message {
+	padding-left: 55px !important;
+	text-align: justify;
+	height: initial !important;
+}
+
+.rebelchat-message-item{
 	height: initial;
 }
 
-.item-list {
-	padding: 0px;
+.rebelchat-messages-container {
+	margin: 10px !important;
+	overflow-y: scroll;
+	width: 100% !important;
 }
 
-.primary-content{
-	height: initial;
+.rebelchat-main-messages-container{
+	max-height: 550px;
+}
+
+.rebelchat-message-item-container {
+	height: initial !important;
+
+}
+.rebelchat-img-sm {
+	width: 46px;
+	height: 46px;
+	margin-right: 10px;
 }

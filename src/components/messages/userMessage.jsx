@@ -1,5 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { AVATAR_CLIENT_URL } from '../../defaultProps';
 
+@connect((store) => {
+	return {
+		selectedUser: store.users.selectedUser,
+	}
+})
 export default class UserBoxMessage extends React.Component {
 
 	constructor (props) {
@@ -9,26 +16,46 @@ export default class UserBoxMessage extends React.Component {
 	componentWillMount() {
 	}
 
+	getAvatar(url, name) {
+		let avatar = null;
+		const title = name + "'s avatar";
+		if ( url && url.length ) {
+			avatar = <img
+				src={url}
+				alt={title}
+				className="rebelchat-img-sm"
+				title={title}
+			/>
+		} else {
+			avatar = <img
+				src={AVATAR_CLIENT_URL}
+				alt={title}
+				className="rebelchat-img-sm"
+				title={title}
+			/>
+		}
+		return avatar;
+	}
+
 	render() {
-		return (
-			<li className="rebelchat-mar-btm rebelchat-server-message" >
-				<div className="rebelchat-media-right">
-					<img
-						className="rebelchat-img rebelchat-img-sm"
-						src="https://firebasestorage.googleapis.com/v0/b/rebelchat-53a46.appspot.com/o/avatars%2Fman2.svg?alt=media&token=f12b4ffc-883c-441f-8794-2914356b1a3f"
-					/>
-					<div className="rebelchat-media-body rebelchat-pad-hor rebelchat-speech-right">
-					 	<div className="rebelchat-speech">
-							<a className="rebelchat-media-heading">
-								<b className="rebelchat-chat-name">
-									Client
-								</b>
-							</a>
-						</div>
+		const {label, id, name, chatSettings} = this.props.selectedUser;
+		if ( this.props.selectedUser  ) {
+			const avatar = this.getAvatar(chatSettings.avatarUrl, name);
+			return (
+				<li className="mdl-list__item mdl-list__item--three-line message-container item-list rebelchat-message-item">
+					<div className="mdl-list__item-primary-content primary-content mdl-grid--no-spacing rebelchat-message-item-container">
+						{avatar}
+						<span>{name}</span>
+						<span className="mdl-list__item-text-body rebelchat-message" title={this.props.createdAt}>
+							{this.props.message}
+						</span>
 					</div>
-				</div>
-			</li>
-		)
+				</li>
+			)
+		} else {
+			//TODO HANDLE ERROR WHEN THERE IS NO SELECTED USER
+			return null;
+		}
 	}
 
 }

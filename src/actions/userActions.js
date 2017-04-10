@@ -7,6 +7,7 @@ const UserHelper = Helpers.UserHelper;
 
 export function getUsers() {
 	return function(dispatch) {
+		//TODO HANDLE AXIOS RESPONSE WITH HTTP CODES
 		User.getAll().then(data=>{
 			dispatch(
 				{
@@ -50,15 +51,12 @@ export function getUserMessages(id) {
 	}
 }
 
-export function setSelectedUser(id, label) {
+export function setSelectedUser(user) {
 	return function( dispatch) {
 		dispatch(
 			{
 				type: "SET_SELECTED_USER",
-				payload: {
-					id: id,
-					label: label
-				}
+				payload: user
 			}
 		);
 	}
