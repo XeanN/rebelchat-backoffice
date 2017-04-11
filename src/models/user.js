@@ -19,4 +19,9 @@ export default class User {
 		return request.get(BASE_PATH);
 	}
 
+	static getById(id) {
+		const path = BASE_PATH + '/' + id;
+		return request.get(path);
+	}
+
 }

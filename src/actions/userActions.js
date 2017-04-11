@@ -47,25 +47,48 @@ export function getUsers() {
 	}
 }
 
-export function getUserMessages(id) {
-	const path = '/messages/' + id  +'/';
-	return function( dispatch) {
-		database.ref(
-			path
-		).orderByChild(
-			'createdAt'
-		).limitToLast(
-			50
-		).once('value').then (data => {
+export function getUserAndSetSelected(id) {
+	return function(dispatch) {
+		dispatch(
+			{
+				type: "GET_SINGLE_USER_PENDING",
+			}
+		);
+		User.getById(id).then(data => {
+			if ( data.status == OK && data.data && data.data.data ) {
+				dispatch(
+					{
+						type: "GET_SINGLE_USER_FULFILLED",
+						payload: data.data.data
+					}
+				);
+				dispatch(
+					{
+						type: "SET_SELECTED_USER",
+						payload: data.data.data
+					}
+				);
+			} else {
+				dispatch(
+					{
+						type: "GET_SINGLE_USER_REJECTED",
+						payload: {
+							errorUser: {
+								message: 'There was a problem trying to get user information'
+							}
+						}
+					}
+				);
+			}
+		}).catch(error =>{
 			dispatch(
 				{
-					type: "GET_USERS_MESSAGES_FULFILLED",
-					payload: data.val()
+					type: "GET_SINGLE_USER_REJECTED",
+					payload: {
+						errorUser: error
+					}
 				}
 			);
-		}).catch( error => {
-			//TODO HANDLE ERRORS
-			console.log(error);
 		});
 	}
 }

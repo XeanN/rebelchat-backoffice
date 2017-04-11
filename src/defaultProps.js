@@ -16,6 +16,8 @@ export const REBELCHAT_CLIENT_KEY_NAME = 'REBELCHAT_KEY';
 
 export const CLIENT_SOURCE = 'CLIENT';
 
+export const SERVER_SOURCE = 'SERVER';
+
 export const HISTORY_MESSAGE_QTY = 10;
 
 //HTTP CODES

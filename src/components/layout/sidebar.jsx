@@ -60,7 +60,7 @@ export default class Sidebar extends React.Component {
 	 * handleUsersError - Handle de error base on the custom message
 	 *
 	 * @param  {object} error Error object
-	 * @return {string}       Error Message description	 
+	 * @return {string}       Error Message description
 	 */
 	handleUsersError( error ) {
 		let message = null;
@@ -109,11 +109,8 @@ export default class Sidebar extends React.Component {
 		usersSorted.forEach((user, index) =>{
 			usersRender.push(
 				<ContactLink
-					label={user.email}
+					user={user}
 					key={user.id}
-					userId={user.id}
-					name={user.name}
-					chatSettings={user.chatSettings}
 				/>
 			)
 		});

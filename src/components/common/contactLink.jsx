@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ContactBadge from "../common/contactBadge";
 import { connect } from "react-redux";
-import { onNewMessageByUser } from "../../actions/messageActions";
-import { setSelectedUser, getUserMessages } from "../../actions/userActions";
+import { setSelectedUser } from "../../actions/userActions";
+import { getMessagesByUser } from "../../actions/messageActions";
 
 @connect((store) => {
 	return {
-		messages: store.messages.list,
-		error: store.messages.error
+		error: store.users.error
 	}
 })
 export default class ContactLink extends React.Component {
@@ -16,10 +15,7 @@ export default class ContactLink extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			label: props.label,
-			userId: props.userId,
-			name: props.name,
-			chatSettings: props.chatSettings
+			user: props.user,
 		}
 
 		this.handleClick = this.handleClick.bind(this);
@@ -30,37 +26,24 @@ export default class ContactLink extends React.Component {
 	}
 
 	handleClick() {
-		this.props.dispatch(setSelectedUser(this.state));
-		this.props.dispatch(getUserMessages(this.state.userId));
+		//SET USER AS SELECTED
+		this.props.dispatch(setSelectedUser(this.state.user));
+		//GET MESSAGE BY USER
+		this.props.dispatch(getMessagesByUser(this.state.user.id));
 	}
 
-	getUserUnreadMessageCount() {
-		const messages = this.props.messages[this.state.userId];
-		let counter = 0;
-		if ( messages ) {
-			const keys = Object.keys(messages);
-			keys.forEach( key =>{
-				if ( !messages[key].read ){
-					counter ++
-				}
-			});
-		}
-		return counter
-	}
 
 	render() {
 		const error = this.props.error;
-		let counter = this.getUserUnreadMessageCount();
 
 		return (
 			<a
 				className="left-menu-option mdl-navigation__link"
-				href={'#lobby/user/' + this.state.userId  +'/messages'}
+				href={'#lobby/user/' + this.state.user.id  +'/messages'}
 				onClick={this.handleClick}
 			>
 				<span className="fa fa-inbox fa-lg" role="presentation"></span>
-				&nbsp;&nbsp;&nbsp;{this.state.label}
-				<ContactBadge count={counter} />
+				&nbsp;&nbsp;&nbsp;{this.state.user.email}
 			</a>
 		)
 	}

@@ -7,7 +7,8 @@ export default class Spinner extends React.Component {
 		super(props);
 		this.state = {
 			show : props.show,
-			label: props.label
+			label: props.label,
+			class: props.class
 		}
 	}
 
@@ -16,11 +17,17 @@ export default class Spinner extends React.Component {
 	}
 
 	render() {
+		let aditionalclass = '';
+		switch (this.state.class) {
+			case 'red':
+				aditionalclass += '-red';
+				break;
+		}
 		let bodyComponent = (
 			<div className="wrap">
 				<div className="loading">
-					<div className="bounceball"></div>
-					<div className="text">
+					<div className={"bounceball" + aditionalclass }></div>
+					<div className={"text" + aditionalclass}>
 						{ this.state.label }
 					</div>
 				</div>

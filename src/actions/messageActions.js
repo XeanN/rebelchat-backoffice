@@ -1,9 +1,40 @@
 "use strict";
 import database from "../firebase";
-import Helpers from './helpers';
 import firebase from 'firebase';
+import {SERVER_SOURCE} from '../defaultProps';
 
-const MESSAGE_LABEL = 'SERVER';
+export function getMessagesByUser(userId) {
+	const path = '/messages/' + userId  +'/';
+	return function( dispatch) {
+		dispatch(
+			{
+				type: "GET_MESSAGES_BY_USER_PENDING",
+			}
+		)
+		database.ref(
+			path
+		).orderByChild(
+			'createdAt'
+		).limitToLast(
+			50
+		).once('value').then (data => {
+			a++;
+			dispatch(
+				{
+					type: "GET_MESSAGES_BY_USER_FULFILLED",
+					payload: data.val()
+				}
+			);
+		}).catch( error => {
+			dispatch(
+				{
+					type: "GET_MESSAGES_BY_USER_REJECTED",
+					payload: error
+				}
+			)
+		});
+	}
+}
 
 export function onNewMessageByUser(userId) {
 	const path = '/messages/' + userId	+'/';
@@ -43,7 +74,7 @@ export function sendMessage(userId, message) {
 		createdAt: firebase.database.ServerValue.TIMESTAMP,
 		message: message,
 		read: false,
-		source: MESSAGE_LABEL
+		source: SERVER_SOURCE
 	};
 	const newMessageKey = database.ref().child(path).push().key;
 	path += newMessageKey;

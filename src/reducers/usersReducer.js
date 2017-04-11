@@ -2,18 +2,27 @@
 
 export default function reducer(
 	state = {
+		//ALL USERS
 		list: {},
 		error: null,
 		fetching: false,
 		fetched: false,
+
+		//SINGLE USER
+		fetchingUser: false,
+		fetchedUser: false,
+		errorUser: null,
+		singleUser: null,
+		
+		//SELECTED USER
+		userIsSelected: false,
 		selectedUser: {
 			label: null,
 			userId: null,
 			name: null,
 			chatSettings: null
 		},
-		//REMOVE
-		selectedUserMessages: null
+
 	},
 	action
 ){
@@ -43,20 +52,44 @@ export default function reducer(
 				fetched: false,
 				error: action.payload
 			}
-		/******************/
-		case 'GET_USERS_MESSAGES_FULFILLED':
-			return {
-				...state,
-				selectedUserMessages: action.payload
-			}
 			break;
-		case 'GET_USERS_MESSAGES_REJECTED':
-			break;
+
+			case 'GET_SINGLE_USER_PENDING':
+				return {
+					...state,
+					fetchingUser: true,
+					fetchedUser: false,
+					errorUser: null,
+					singleUser: null
+				}
+				break;
+			case 'GET_SINGLE_USER_FULFILLED':
+				return {
+					...state,
+					fetchingUser: false,
+					fetchedUser: true,
+					errorUser: null,
+					singleUser: action.payload
+				}
+				break;
+			case 'GET_SINGLE_USER_REJECTED':
+				return {
+					...state,
+					list: {},
+					fetchingUser: false,
+					fetchedUser: false,
+					errorUser: action.payload,
+					singleUser: null
+				}
+				break;
+
 		case 'SET_SELECTED_USER':
 			return {
 				...state,
-				selectedUser: action.payload
+				selectedUser: action.payload,
+				userIsSelected: true
 			}
+			break;
 	}
 	return state;
 }

@@ -88,6 +88,33 @@
 	animation: bounce 500ms alternate infinite ease;
 }
 
+.text-red {
+	color: #d75252;
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.bounceball-red {
+	position: relative;
+	display: inline-block;
+	height: 37px;
+	width: 15px;
+}
+
+.bounceball-red:before {
+	position: absolute;
+	content: '';
+	display: block;
+	top: 0;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-color: #d75252;
+	transform-origin: 50%;
+	animation: bounce 500ms alternate infinite ease;
+}
+
+
 @keyframes bounce {
 	0% {
 		top: 30px;
