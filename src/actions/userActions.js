@@ -1,17 +1,37 @@
 "use strict";
 import database from "../firebase";
 import User from "../models/user";
+import { OK } from "../defaultProps";
 
 export function getUsers() {
 	return function(dispatch) {
-		//TODO HANDLE AXIOS RESPONSE WITH HTTP CODES
-		User.getAll().then(data=>{
-			dispatch(
-				{
-					type: "GET_USERS_FULFILLED",
-					payload: data.data.data
-				}
-			);
+		dispatch(
+			{
+				type: "GET_USERS_PENDING",
+			}
+		);
+		//TODO REMOVE SETTIMEOUT (SIMULATE SERVER DELAY)
+		// window.setTimeout(() => {
+		User.getAll().then(data => {
+			if ( data.status == OK && data.data && data.data.data ) {
+				dispatch(
+					{
+						type: "GET_USERS_FULFILLED",
+						payload: data.data.data
+					}
+				);
+			} else {
+				dispatch(
+					{
+						type: "GET_USERS_REJECTED",
+						payload: {
+							error: {
+								message: 'There was a problem trying to get the server response'
+							}
+						}
+					}
+				);
+			}
 		}).catch(error =>{
 			dispatch(
 				{
@@ -21,7 +41,9 @@ export function getUsers() {
 					}
 				}
 			);
-		})
+		});
+		// }, 2000);
+
 	}
 }
 

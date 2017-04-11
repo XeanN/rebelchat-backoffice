@@ -170,12 +170,18 @@
 	width: 100% !important;
 }
 
-.rebelchat-main-messages-container {
-	
+.rebelchat-messages-area {
+	margin: initial !important;
+	width: 100% !important;
+}
+
+.scrollarea{
+	width: 100%;
 }
 
 .rebelchat-main-messages-container{
 	max-height: 550px;
+	width: 100%;
 }
 
 .rebelchat-message-item-container {

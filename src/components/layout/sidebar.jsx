@@ -10,7 +10,9 @@ const DEFAULT_ERROR_MESSAGE = "There was a problem loading the users";
 @connect((store) => {
 	return {
 		users: store.users.list,
-		error: store.users.error
+		error: store.users.error,
+		fetching: store.users.fetching,
+		fetched: store.users.fetched,
 	}
 })
 export default class Sidebar extends React.Component {
@@ -21,36 +23,6 @@ export default class Sidebar extends React.Component {
 
 	componentWillMount() {
 		this.props.dispatch(getUsers());
-	}
-
-	reloadUsers() {
-		// this.props.dispatch(getUsers());
-	}
-
-	renderErrorUserList( error ) {
-		let body = null;
-		body = (
-			<div className="container-options">
-				<a
-					href="#"
-					title="Reload users"
-					onClick={this.reloadUsers.bind(this)}
-				>
-					<i className="material-icons">replay</i>
-				</a>
-				<div className="users-container-error">
-					<p>
-						<i className="material-icons">report_problem</i>
-					</p>
-					<span>
-						<b>
-							{DEFAULT_ERROR_MESSAGE}
-						</b>
-					</span>
-				</div>
-			</div>
-		);
-		return body;
 	}
 
 	sortUsers(users) {
@@ -68,7 +40,70 @@ export default class Sidebar extends React.Component {
 		});
 	}
 
-	renderUserList( users ) {
+	reloadUsers() {
+		this.props.dispatch(getUsers());
+	}
+
+	renderFetching() {
+		return (
+			<div className="container-options">
+				<Spinner
+					show= {true}
+					label= "Loading users..."
+				/>
+			</div>
+		);
+	}
+
+
+	/**
+	 * handleUsersError - Handle de error base on the custom message
+	 *
+	 * @param  {object} error Error object
+	 * @return {string}       Error Message description	 
+	 */
+	handleUsersError( error ) {
+		let message = null;
+		if ( error ) {
+			switch (true) {
+				case error.message && error.message.length:
+					message = error.message;
+					break;
+				default:
+					message = DEFAULT_ERROR_MESSAGE;
+			}
+		} else {
+			message = DEFAULT_ERROR_MESSAGE;
+		}
+		return message;
+	}
+
+	renderError( error ) {
+		const message = this.handleUsersError(error);
+		return (
+			<div className="container-options">
+				<a
+					href="#"
+					title="Reload users"
+					onClick={this.reloadUsers.bind(this)}
+				>
+					<i className="material-icons">replay</i>
+				</a>
+				<div className="users-container-error">
+					<p>
+						<i className="material-icons">report_problem</i>
+					</p>
+					<span>
+						<b>
+							{message}
+						</b>
+					</span>
+				</div>
+			</div>
+		);
+	}
+
+	renderFetched( users ) {
 		let usersRender = [];
 		const usersSorted	= this.sortUsers(users);
 		usersSorted.forEach((user, index) =>{
@@ -94,13 +129,19 @@ export default class Sidebar extends React.Component {
 	}
 
 	render() {
-		const {users, error} = this.props;
+		const {users, error, fetching, fetched} = this.props;
 		let body = null;
 
-		if ( error ) {
-			body = this.renderErrorUserList( error );
-		} else {
-			body = this.renderUserList( users );
+		switch (true) {
+			case fetching:
+				body = this.renderFetching();
+				break;
+			case error != null:
+				body = this.renderError( error );
+				break;
+			case fetched:
+				body = this.renderFetched( users );
+				break;
 		}
 
 		return (

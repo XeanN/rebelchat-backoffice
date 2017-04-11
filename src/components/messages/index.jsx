@@ -4,6 +4,7 @@ import { Menu, MenuItem, IconButton } from 'react-mdl';
 import Message from './message';
 import { setSelectedUser, getUserMessages } from "../../actions/userActions";
 import ChatZone from './chatZone';
+import ScrollArea from 'react-scrollbar';
 
 @connect((store) => {
 	return {
@@ -16,6 +17,12 @@ export default class Messages extends React.Component {
 
 	constructor (props) {
 		super(props);
+	}
+
+	componentDidMount() {
+		//FOCUS LAST MESSAGES
+		// console.log(this.refs['scrollbar']);
+		this.refs['scrollbar'].scrollBottom();
 	}
 
 	getUserMessagesData() {
@@ -95,9 +102,16 @@ export default class Messages extends React.Component {
 					<h5 className="mdl-cell mdl-cell--12-col chat-title">
 						{label}
 					</h5>
-					<div className="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing rebelchat-main-messages-container">
-						{ messages }
+
+					<div className="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing rebelchat-messages-area">
+						<ScrollArea
+							ref="scrollbar"
+							horizontal={false}
+						>
+							{ messages }
+						</ScrollArea>
 					</div>
+
 					<div className="mdl-card__actions card-actions">
 						<ChatZone/>
 					</div>
