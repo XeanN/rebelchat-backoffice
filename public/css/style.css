@@ -167,8 +167,11 @@
 
 .rebelchat-messages-container {
 	margin: 10px !important;
-	overflow-y: scroll;
 	width: 100% !important;
+}
+
+.rebelchat-main-messages-container {
+	
 }
 
 .rebelchat-main-messages-container{

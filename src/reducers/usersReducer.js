@@ -6,7 +6,9 @@ export default function reducer(
 		error: null,
 		selectedUser: {
 			label: null,
-			id: null
+			userId: null,
+			name: null,
+			chatSettings: null
 		},
 		selectedUserMessages: null
 	},

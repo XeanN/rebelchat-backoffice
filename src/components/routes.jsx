@@ -6,10 +6,7 @@ import Login from './login';
 import Home from './home';
 import Messages from './messages';
 import Layout from './layout';
-import Helpers from '../helpers';
-
-//LOAD ROUTER HELPER
-const RouterHelper = Helpers.RouterHelper;
+import RouterHelper  from '../helpers/routerHelper';
 
 //FOR CHUNK NAMES AND ES6 YOU SHOULD PUT "DEFAULT"
 export default (

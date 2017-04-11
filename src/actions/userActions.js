@@ -1,9 +1,6 @@
 "use strict";
 import database from "../firebase";
-import Helpers from './helpers';
 import User from "../models/user";
-
-const UserHelper = Helpers.UserHelper;
 
 export function getUsers() {
 	return function(dispatch) {
