@@ -186,6 +186,12 @@
 	width: 100%;
 }
 
+.rebelchat-message-header {
+	padding-left: 0px ! important;
+	text-align: justify;
+	height: initial !important;
+}
+
 .rebelchat-message {
 	padding-left: 55px !important;
 	text-align: justify;

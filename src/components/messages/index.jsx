@@ -6,6 +6,7 @@ import Message from './message';
 import { getUserAndSetSelected } from "../../actions/userActions";
 import { getMessagesByUser } from "../../actions/messageActions";
 import ChatZone from './chatZone';
+import MessagesHandler from './messagesHandler';
 import ScrollArea from 'react-scrollbar';
 import Spinner from "../common/spinner";
 
@@ -36,19 +37,6 @@ export default class Messages extends React.Component {
 
 	constructor (props) {
 		super(props);
-	}
-
-	scrollToBottom() {
-		if ( this.refs['scrollbar'] ) {
-			setTimeout(() =>{
-				this.refs['scrollbar'].scrollBottom();
-			}, 1000);
-		}
-	}
-
-	componentDidMount() {
-		//FOCUS LAST MESSAGES
-		this.scrollToBottom();
 	}
 
 	componentWillMount() {
@@ -83,7 +71,6 @@ export default class Messages extends React.Component {
 	}
 
 	messageError(error) {
-		//TODO ELABORATE A BETTER ERROR FOR THIS COMPONENT
 		const errorMessage = this.handleUsersError(error);
 		return (
 			<div className="container-options center">
@@ -112,46 +99,12 @@ export default class Messages extends React.Component {
 	}
 
 	messageFetched(messages) {
-		const history = [];
-		const allMessages = [];
-		let _messages = [];
-		let lastMessageSource = null;
-		if ( messages ) {
-			const messagesId = Object.keys(messages);
-			messagesId.forEach ( (id,index) => {
-				//ADD KEY TO MESSAGE OBJECT
-				messages[id].id = id;
-				//CHECK MESSAGE SOURCE
-				if ( lastMessageSource == messages[id].source || lastMessageSource == null) {
-					_messages.push( messages[id] );
-				} else {
-					allMessages.push(_messages);
-					_messages = [];
-					_messages.push(messages[id])
-				}
-				lastMessageSource = messages[id].source;
-			});
-			//ADD THE LAST MESSAGE
-			allMessages.push(_messages);
-			//CREATE MESSAGE COMPONENT
-			allMessages.forEach( (messages,index) => {
-				history.push(
-					<Message
-						key={index}
-						messages={messages}
-						type={messages[0].source}
-						ref={(el) => {this.lastMessage = el;}}
-					/>
-				);
-			});
-		}
+
 		return (
-			<ScrollArea
-				ref="scrollbar"
-				horizontal={false}
-			>
-				{ history }
-			</ScrollArea>
+			<MessagesHandler
+				ref="messages-handler"
+				messages={messages}
+			/>
 		);
 	}
 
