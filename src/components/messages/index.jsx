@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
 import { Menu, MenuItem, IconButton } from 'react-mdl';
 import Message from './message';
@@ -37,11 +38,17 @@ export default class Messages extends React.Component {
 		super(props);
 	}
 
+	scrollToBottom() {
+		if ( this.refs['scrollbar'] ) {
+			setTimeout(() =>{
+				this.refs['scrollbar'].scrollBottom();
+			}, 1000);
+		}
+	}
+
 	componentDidMount() {
 		//FOCUS LAST MESSAGES
-		if ( this.refs['scrollbar'] ) {
-			this.refs['scrollbar'].scrollBottom();
-		}
+		this.scrollToBottom();
 	}
 
 	componentWillMount() {
@@ -56,8 +63,8 @@ export default class Messages extends React.Component {
 	/**
 	 * handleUsersError - Handle de error base on the custom message
 	 *
-	 * @param  {object} error Error object
-	 * @return {string}       Error Message description
+	 * @param	{object} error Error object
+	 * @return {string}			 Error Message description
 	 */
 	handleUsersError( error ) {
 		let message = null;
@@ -79,7 +86,7 @@ export default class Messages extends React.Component {
 		//TODO ELABORATE A BETTER ERROR FOR THIS COMPONENT
 		const errorMessage = this.handleUsersError(error);
 		return (
-			<div className="container-options">
+			<div className="container-options center">
 				<div className="users-container-error">
 					<p>
 						<i className="material-icons">report_problem</i>
@@ -133,6 +140,7 @@ export default class Messages extends React.Component {
 						key={index}
 						messages={messages}
 						type={messages[0].source}
+						ref={(el) => {this.lastMessage = el;}}
 					/>
 				);
 			});
@@ -171,8 +179,8 @@ export default class Messages extends React.Component {
 					body = this.messageFetched(messages);
 					label = selectedUser.email;
 					break;
-				case messageError:
-					label = 'Ooops! :(';
+				case messageError != null:
+					label = 'Ooops!';
 					body = this.messageError(messageError);
 					break;
 			}
@@ -182,8 +190,8 @@ export default class Messages extends React.Component {
 					body = this.messageFetching();
 					label = 'Loading...';
 					break;
-				case errorUser:
-					label = '';
+				case errorUser != null:
+					label = 'Ooops!';
 					body = this.messageError(errorUser);
 					break;
 			}

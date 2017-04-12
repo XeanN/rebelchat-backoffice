@@ -18,7 +18,6 @@ export function getMessagesByUser(userId) {
 		).limitToLast(
 			50
 		).once('value').then (data => {
-			a++;
 			dispatch(
 				{
 					type: "GET_MESSAGES_BY_USER_FULFILLED",
