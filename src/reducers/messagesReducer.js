@@ -5,7 +5,10 @@ export default function reducer(
 		list: {},
 		error: null,
 		fetching:false,
-		fetched:false
+		fetched:false,
+
+		newServerMessage: null,
+		newClientMessage: null
 	},
 	action
 ){
@@ -36,19 +39,23 @@ export default function reducer(
 			}
 			break;
 		/**************/
-		case 'NEW_MESSAGE':
-			return{
+		case 'NEW_SERVER_MESSAGE':
+			return {
 				...state,
-				list: {
-					...state.list,
-					[action.payload.user]: {
-						...state.list[action.payload.user],
-						[action.payload.id]: {
-							...action.payload.message
-						}
-					}
-				}
+				newServerMessage: action.payload
 			}
+			// return{
+			// 	...state,
+			// 	list: {
+			// 		...state.list,
+			// 		[action.payload.user]: {
+			// 			...state.list[action.payload.user],
+			// 			[action.payload.id]: {
+			// 				...action.payload.message
+			// 			}
+			// 		}
+			// 	}
+			// }
 			break;
 	}
 	return state;

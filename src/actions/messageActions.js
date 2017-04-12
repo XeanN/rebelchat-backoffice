@@ -80,3 +80,16 @@ export function sendMessage(userId, message) {
 	updates[path] = newMessage;
 	return firebase.database().ref().update(updates);
 }
+
+export function newServerMessage(message) {
+	message.createdAt = firebase.database.ServerValue.TIMESTAMP
+	message.id = firebase.database.ServerValue.TIMESTAMP
+	return function(dispatch) {
+		dispatch(
+			{
+				type: "NEW_SERVER_MESSAGE",
+				payload: message
+			}
+		);
+	}
+}

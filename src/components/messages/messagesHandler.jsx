@@ -9,6 +9,7 @@ import ScrollArea from 'react-scrollbar';
 @connect((store) => {
 	return {
 		selectedUser: store.users.selectedUser,
+		newServerMessage: store.messages.newServerMessage
 	}
 })
 export default class MessageHandler extends React.Component {
@@ -25,8 +26,13 @@ export default class MessageHandler extends React.Component {
 		if ( this.refs['scrollbar'] ) {
 			setTimeout(() =>{
 				this.refs['scrollbar'].scrollBottom();
-			}, 1000);
+			}, 900);
 		}
+	}
+
+	componentDidUpdate() {
+		//FOCUS LAST MESSAGES
+		this.scrollToBottom();
 	}
 
 	componentDidMount() {
@@ -37,6 +43,9 @@ export default class MessageHandler extends React.Component {
 	buildMessages() {
 		const renderMessages = [];
 		const messages = this.state.messages;
+		if ( this.props.newServerMessage ) {
+			messages[this.props.newServerMessage.id] = this.props.newServerMessage;
+		}
 		const messagesId = Object.keys(messages);
 		let lastMessageSource = null;
 		messagesId.forEach ( (id ,index ) => {

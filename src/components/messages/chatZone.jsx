@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {IconButton, Textfield } from 'react-mdl';
-import { sendMessage } from "../../actions/messageActions";
-import { getUserMessages } from "../../actions/userActions";
+import { sendMessage, newServerMessage } from "../../actions/messageActions";
+import { SERVER_SOURCE } from '../../defaultProps';
 
 @connect((store) => {
 	return {
 		selectedUser: store.users.selectedUser,
+		userIsSelected: store.users.userIsSelected
 	}
 })
 export default class ChatZone extends React.Component {
@@ -27,20 +28,37 @@ export default class ChatZone extends React.Component {
 		}
 	}
 
-	SendMessage(event) {
+	sendMessageByKey(event) {
 		if (event.key == 'Enter' && this.state.message ) {
-			const { userId } = this.props.selectedUser;
-			if ( userId ) {
-				sendMessage(userId, this.state.message ).then( data =>{
-					//CLEAN MESSAGE INPUT
-					this.refs['textInput'].inputRef.value='';
-					//UPDATE MESSAGES
-					this.props.dispatch(getUserMessages(userId));
-				}).catch ( error => {
-					//TODO HANDLE ERROR
-					console.log(error);
-				});
-			}
+			this.sendMessage();
+		}
+	}
+
+	sendMessageByButton() {
+		if (this.state.message ) {
+			this.sendMessage();
+		}
+	}
+
+	sendMessage(event) {
+		if ( this.props.userIsSelected ) {
+			const { id } = this.props.selectedUser;
+			sendMessage(id, this.state.message ).then( data =>{
+				//CLEAN MESSAGE INPUT
+				this.refs['textInput'].inputRef.value='';
+				//UPDATE MESSAGES
+				const message = {
+					message: this.state.message,
+					read:false,
+					source: SERVER_SOURCE
+				}
+				this.props.dispatch(newServerMessage(message));
+			}).catch ( error => {
+				//TODO HANDLE ERROR
+				console.log(error);
+			});
+		} else {
+			//TODO HANDLE ERROR
 		}
 	}
 
@@ -53,10 +71,10 @@ export default class ChatZone extends React.Component {
 						onChange={this.writeNewMessage.bind(this)}
 						label="Message"
 						style={{width: '100%'}}
-						onKeyPress={this.SendMessage.bind(this)}
+						onKeyPress={this.sendMessageByKey.bind(this)}
 					/>
 					<IconButton
-						onClick={this.SendMessage.bind(this)}
+						onClick={this.sendMessageByButton.bind(this)}
 						name="send"
 						colored	title="Send message"
 						style={{"marginTop":"10px"}}
