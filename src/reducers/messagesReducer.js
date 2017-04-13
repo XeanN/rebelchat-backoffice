@@ -38,11 +38,17 @@ export default function reducer(
 				error: action.payload
 			}
 			break;
-		/**************/
-		case 'NEW_SERVER_MESSAGE':
+
+		case 'NEW_SERVER_MESSAGE_FULFILLED':
 			return {
 				...state,
 				newServerMessage: action.payload
+			}
+			break;
+		case 'NEW_CLIENT_MESSAGE_FULFILLED':
+			return {
+				...state,
+				newClientMessage: action.payload
 			}
 			break;
 	}

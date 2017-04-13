@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AVATAR_CLIENT_URL, AVATAR_SERVER_URL } from '../../defaultProps';
-import { getUsers } from "../../actions/messageActions";
+import { onNewMessageByUser } from "../../actions/messageActions";
 import CommonHelper from "../../helpers/commonHelper";
 import Message from './message';
 import ScrollArea from 'react-scrollbar';
@@ -9,7 +9,8 @@ import ScrollArea from 'react-scrollbar';
 @connect((store) => {
 	return {
 		selectedUser: store.users.selectedUser,
-		newServerMessage: store.messages.newServerMessage
+		newServerMessage: store.messages.newServerMessage,
+		newClientMessage: store.messages.newClientMessage
 	}
 })
 export default class MessageHandler extends React.Component {
@@ -31,7 +32,7 @@ export default class MessageHandler extends React.Component {
 	}
 
 	componentWillMount() {
-		// this.props.dispatch(onNewMessageByUser(userId));
+		this.props.dispatch(onNewMessageByUser(this.props.selectedUser.id));
 	}
 
 	componentDidUpdate() {
@@ -50,6 +51,13 @@ export default class MessageHandler extends React.Component {
 		if ( this.props.newServerMessage ) {
 			messages[this.props.newServerMessage.id] = this.props.newServerMessage;
 		}
+
+		if ( this.props.newClientMessage ) {
+			if ( this.props.selectedUser.id == this.props.newClientMessage.user ) {
+				messages[this.props.newClientMessage.id] = this.props.newClientMessage.message;
+			}
+		}
+
 		const messagesId = Object.keys(messages);
 		let lastMessageSource = null;
 		messagesId.forEach ( (id ,index ) => {

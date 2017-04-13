@@ -42,7 +42,7 @@ export function onNewMessageByUser(userId) {
 			database.ref(path).orderByChild('createdAt').on('child_added', function(snap){
 				dispatch(
 					{
-						type: "NEW_MESSAGE",
+						type: "NEW_CLIENT_MESSAGE_FULFILLED",
 						payload: {
 							user: userId,
 							message: snap.val(),
@@ -54,7 +54,7 @@ export function onNewMessageByUser(userId) {
 		} catch (e) {
 			dispatch(
 				{
-					type: "NEW_MESSAGE_ERROR",
+					type: "NEW_CLIENT_MESSAGE_REJECTED",
 					payload: {
 						error: e
 					}
@@ -87,7 +87,7 @@ export function newServerMessage(message) {
 	return function(dispatch) {
 		dispatch(
 			{
-				type: "NEW_SERVER_MESSAGE",
+				type: "NEW_SERVER_MESSAGE_FULFILLED",
 				payload: message
 			}
 		);
