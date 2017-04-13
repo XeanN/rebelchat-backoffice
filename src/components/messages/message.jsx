@@ -61,21 +61,22 @@ export default class Message extends React.Component {
 			name = this.props.selectedUser.name
 		}
 
+		const date = CommonHelper.buildDateMessageFormat(
+			message.createdAt
+		);
+
 		return (
-			<div className="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing rebelchat-messages-container">
+
 				<li className="mdl-list__item mdl-list__item--three-line message-container item-list rebelchat-message-item">
 					<div className="mdl-list__item-primary-content primary-content mdl-grid--no-spacing rebelchat-message-item-container">
 						{avatar}
 						<span style={{'position': 'absolute', 'marginTop':'5px'}}>
 							{name}
+							<span className="rebelchat-time-label">{date}</span>
 							<br/>
 							<span
 								className="mdl-list__item-text-body rebelchat-message-header"
-								title={
-									CommonHelper.buildDateMessageFormat(
-										message.createdAt
-									)
-								}
+								title={date}
 								key={message.id}
 							>
 								{message.message}
@@ -83,7 +84,7 @@ export default class Message extends React.Component {
 						</span>
 					</div>
 				</li>
-			</div>
+
 		)
 	}
 
@@ -91,7 +92,7 @@ export default class Message extends React.Component {
 		const message = this.state.message;
 		const avatar = this.getAvatar(message);
 		return (
-			<div className="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing rebelchat-messages-container">
+
 				<li className="mdl-list__item mdl-list__item--three-line message-container item-list rebelchat-message-item">
 					<div className="mdl-list__item-primary-content primary-content mdl-grid--no-spacing rebelchat-message-item-container">
 						<span
@@ -107,7 +108,7 @@ export default class Message extends React.Component {
 						</span>
 					</div>
 				</li>
-			</div>
+
 		)
 	}
 

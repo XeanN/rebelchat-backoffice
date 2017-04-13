@@ -30,6 +30,10 @@ export default class MessageHandler extends React.Component {
 		}
 	}
 
+	componentWillMount() {
+		// this.props.dispatch(onNewMessageByUser(userId));
+	}
+
 	componentDidUpdate() {
 		//FOCUS LAST MESSAGES
 		this.scrollToBottom();

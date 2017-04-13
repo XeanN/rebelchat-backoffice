@@ -200,6 +200,7 @@
 
 .rebelchat-message-item{
 	height: initial;
+	padding: 8px;
 }
 
 .rebelchat-messages-container {
@@ -229,4 +230,11 @@
 	width: 46px;
 	height: 46px;
 	margin-right: 10px;
+}
+
+
+.rebelchat-time-label {
+	color:rgba(0,0,0,.54);
+	font-size: 12px;
+	margin-left: 10px;
 }
