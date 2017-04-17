@@ -176,10 +176,7 @@ export default class Messages extends React.Component {
 							<div className="button-menu">
 								<IconButton name="more_vert" id="demo-menu-lower-left" />
 								<Menu target="demo-menu-lower-left" align="right">
-									<MenuItem>Some Action</MenuItem>
-									<MenuItem>Another Action</MenuItem>
-									<MenuItem disabled>Disabled Action</MenuItem>
-									<MenuItem>Yet Another Action</MenuItem>
+									<MenuItem>Block User</MenuItem>
 								</Menu>
 							</div>
 						)

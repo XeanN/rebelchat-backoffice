@@ -4,10 +4,14 @@ import ContactBadge from "../common/contactBadge";
 import { connect } from "react-redux";
 import { setSelectedUser } from "../../actions/userActions";
 import { getMessagesByUser } from "../../actions/messageActions";
+import { onNewMessageByUser, clearNewClientMessages } from "../../actions/messageActions";
+import { Badge } from 'react-mdl';
 
 @connect((store) => {
 	return {
-		error: store.users.error
+		error: store.users.error,
+		newClientMessage: store.messages.newClientMessage,
+		selectedUser: store.users.selectedUser,
 	}
 })
 export default class ContactLink extends React.Component {
@@ -22,10 +26,14 @@ export default class ContactLink extends React.Component {
 	}
 
 	componentWillMount() {
-		// this.props.dispatch(onNewMessageByUser(this.state.userId));
+		this.props.dispatch(onNewMessageByUser(this.state.user.id));
 	}
 
 	handleClick() {
+		//CLEAR NEW MESSAGES
+		this.props.dispatch(
+			clearNewClientMessages(this.state.user.id)
+		)
 		//SET USER AS SELECTED
 		this.props.dispatch(setSelectedUser(this.state.user));
 		//GET MESSAGE BY USER
@@ -35,6 +43,12 @@ export default class ContactLink extends React.Component {
 
 	render() {
 		const error = this.props.error;
+		let userNewMessages = []
+		let newMessagesCount = 0;
+		if ( this.state.user.id !=this.props.selectedUser.id && this.props.newClientMessage && this.props.newClientMessage[this.state.user.id] ) {
+			userNewMessages = this.props.newClientMessage[this.state.user.id];
+			newMessagesCount = userNewMessages ? Object.keys(userNewMessages).length : 0
+		}
 
 		return (
 			<a
@@ -44,6 +58,7 @@ export default class ContactLink extends React.Component {
 			>
 				<span className="fa fa-inbox fa-lg" role="presentation"></span>
 				&nbsp;&nbsp;&nbsp;{this.state.user.email}
+				<ContactBadge count={newMessagesCount}/>
 			</a>
 		)
 	}

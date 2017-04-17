@@ -44,7 +44,7 @@ export function onNewMessageByUser(userId) {
 					{
 						type: "NEW_CLIENT_MESSAGE_FULFILLED",
 						payload: {
-							user: userId,
+							userId: userId,
 							message: snap.val(),
 							id: snap.key
 						}
@@ -61,6 +61,19 @@ export function onNewMessageByUser(userId) {
 				}
 			);
 		}
+	}
+}
+
+export function clearNewClientMessages(userId) {
+	return function(dispatch) {
+		dispatch(
+			{
+				type: 'CLEAR_NEW_CLIENT_MESSAGE',
+				payload: {
+					userId: userId
+				}
+			}
+		)
 	}
 }
 
