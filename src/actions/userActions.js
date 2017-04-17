@@ -1,7 +1,7 @@
 "use strict";
 import database from "../firebase";
 import User from "../models/user";
-import { OK } from "../defaultProps";
+import { OK } from "../settings";
 
 export function getUsers() {
 	return function(dispatch) {

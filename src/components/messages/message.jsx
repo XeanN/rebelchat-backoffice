@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AVATAR_CLIENT_URL, AVATAR_SERVER_URL } from '../../defaultProps';
+import { AVATAR_CLIENT_URL, AVATAR_SERVER_URL } from '../../settings';
 import { getUsers } from "../../actions/messageActions";
 import CommonHelper from "../../helpers/commonHelper";
-import { CLIENT_SOURCE, SERVER_SOURCE } from '../../defaultProps';
+import { CLIENT_SOURCE, SERVER_SOURCE } from '../../settings';
 
 @connect((store) => {
 	return {

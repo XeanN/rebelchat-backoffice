@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AVATAR_CLIENT_URL, AVATAR_SERVER_URL } from '../../defaultProps';
+import { AVATAR_CLIENT_URL, AVATAR_SERVER_URL } from '../../settings';
 import { onNewMessageByUser, clearNewClientMessages } from "../../actions/messageActions";
 import CommonHelper from "../../helpers/commonHelper";
 import Message from './message';

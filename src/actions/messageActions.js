@@ -1,7 +1,7 @@
 "use strict";
 import database from "../firebase";
 import firebase from 'firebase';
-import {SERVER_SOURCE} from '../defaultProps';
+import {SERVER_SOURCE} from '../settings';
 
 export function getMessagesByUser(userId) {
 	const path = '/messages/' + userId  +'/';
@@ -40,6 +40,7 @@ export function onNewMessageByUser(userId) {
 	return function(dispatch) {
 		try {
 			database.ref(path).orderByChild('createdAt').on('child_added', function(snap){
+				
 				dispatch(
 					{
 						type: "NEW_CLIENT_MESSAGE_FULFILLED",

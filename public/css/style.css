@@ -238,3 +238,32 @@
 	font-size: 12px;
 	margin-left: 10px;
 }
+
+/************LOGIN ***************/
+.login-bg{
+  height:100vh;
+  width: 100%;
+  display:flex;
+  background-color: #FAFAFA;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container{
+  width: 350px;
+  /* height: 300px; */
+  background-color: #FFFFFF;
+  padding: 30px;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+	text-align: center;
+}
+
+.login-container.reset-password{
+  height: 350px;
+}
+
+.login-button{
+  width: 100%;
+}

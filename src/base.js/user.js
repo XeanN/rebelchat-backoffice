@@ -7,14 +7,11 @@ const request = axios.create({
 	baseURL: config.SERVER_URL,
 	headers: {
 		"Accept": "application/json",
-		"Content-Type": "application/json"
+		"Content-Type": "application/json",
 	}
 });
 
-
 const BASE_PATH = 'organization/' + ORGID + '/user';
-
-const LOGIN_PATH = 'organization/' + ORGID + '/login';
 
 export default class User {
 
@@ -25,10 +22,6 @@ export default class User {
 	static getById(id) {
 		const path = BASE_PATH + '/' + id;
 		return request.get(path);
-	}
-
-	static login( payload ) {
-		return request.post(LOGIN_PATH, payload);
 	}
 
 }

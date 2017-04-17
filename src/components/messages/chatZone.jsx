@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {IconButton, Textfield } from 'react-mdl';
 import { sendMessage, newServerMessage } from "../../actions/messageActions";
-import { SERVER_SOURCE } from '../../defaultProps';
+import { SERVER_SOURCE } from '../../settings';
 
 @connect((store) => {
 	return {

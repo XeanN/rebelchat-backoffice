@@ -11,7 +11,7 @@ import RouterHelper  from '../helpers/routerHelper';
 //FOR CHUNK NAMES AND ES6 YOU SHOULD PUT "DEFAULT"
 export default (
 	<Route path="/" component={App} >
-		<IndexRoute component={Login} onEnter={RouterHelper.redirectToHome} />
+		<IndexRoute component={Login}  />
 		<Route
 			path="/login"
 			component={ Login }
