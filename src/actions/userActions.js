@@ -1,5 +1,4 @@
 "use strict";
-import database from "../firebase";
 import User from "../models/user";
 import { OK } from "../settings";
 

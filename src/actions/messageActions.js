@@ -1,7 +1,7 @@
 "use strict";
-import database from "../firebase";
+import { MESSAGE_DB } from "../firebase";
 import firebase from 'firebase';
-import {SERVER_SOURCE} from '../settings';
+import { SERVER_SOURCE } from '../settings';
 
 export function getMessagesByUser(userId) {
 	const path = '/messages/' + userId  +'/';
@@ -11,7 +11,7 @@ export function getMessagesByUser(userId) {
 				type: "GET_MESSAGES_BY_USER_PENDING",
 			}
 		)
-		database.ref(
+		MESSAGE_DB.ref(
 			path
 		).orderByChild(
 			'createdAt'
@@ -39,8 +39,8 @@ export function onNewMessageByUser(userId) {
 	const path = '/messages/' + userId	+'/';
 	return function(dispatch) {
 		try {
-			database.ref(path).orderByChild('createdAt').on('child_added', function(snap){
-				
+			MESSAGE_DB.ref(path).orderByChild('createdAt').on('child_added', function(snap){
+
 				dispatch(
 					{
 						type: "NEW_CLIENT_MESSAGE_FULFILLED",
@@ -89,10 +89,10 @@ export function sendMessage(userId, message) {
 		read: false,
 		source: SERVER_SOURCE
 	};
-	const newMessageKey = database.ref().child(path).push().key;
+	const newMessageKey = MESSAGE_DB.ref().child(path).push().key;
 	path += newMessageKey;
 	updates[path] = newMessage;
-	return firebase.database().ref().update(updates);
+	return MESSAGE_DB.ref().update(updates);
 }
 
 export function newServerMessage(message) {

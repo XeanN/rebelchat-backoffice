@@ -1,14 +1,12 @@
 import firebase from 'firebase';
+import CONFIG from '../config';
 
-const config = {
-	apiKey: "AIzaSyBMB9rO2BtIaRmt6SH8sakZyE02CibIb-8",
-	authDomain: "rebelstackchat.firebaseapp.com",
-	databaseURL: "https://rebelstackchat.firebaseio.com",
-	storageBucket: "rebelstackchat.appspot.com",
-	messagingSenderId: "209932179940"
-};
-
-firebase.initializeApp(config);
+firebase.initializeApp(CONFIG.MESSAGE_DB);
 const database = firebase.database();
 
-export default database;
+const CONFIG_APP = firebase.initializeApp(CONFIG.CONFIG_DB, 'CONFIG');
+
+//CONNECTION TO MULTIPLE DATABASES
+export const MESSAGE_DB = firebase.database();
+
+export const CONFIG_DB = CONFIG_APP.database();
