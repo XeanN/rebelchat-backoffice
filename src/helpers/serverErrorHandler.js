@@ -29,6 +29,9 @@ export default class ServerErrorHandler {
 				case 400:
 					this._notificationLevel = WARNING;
 					break;
+				case 404:
+					this._notificationLevel = WARNING;
+					break;
 				case 500:
 					this._notificationLevel = ERROR;
 					break;

@@ -1,8 +1,33 @@
 const KEY = 'rebelchat-auth-token';
+const USER_KEY = 'rebelchat-user-info';
 const STORE = localStorage;
+
+let USER_INSTANCE;
 
 export default class Auth	{
 
+	static getMe() {
+		const user =  STORE.getItem(USER_KEY);
+		if ( user ) {
+			return JSON.parse(user);
+		} else {
+			//TODO HANDLE WHEN THERE IS NO DATA ON LOCALSTORAGE
+		}
+	}
+
+	static setMe( user ) {
+		const _user = {
+			name: user.name,
+			email: user.email,
+			roles: user.roles,
+			chatSettings: user.chatSettings
+		}
+		STORE.setItem( USER_KEY,  JSON.stringify(_user) );
+	}
+
+	static removeMe() {
+		STORE.setItem( USER_KEY,  null );
+	}
 
 	static getToken() {
 		return STORE.getItem(KEY) || null ;
@@ -22,6 +47,7 @@ export default class Auth	{
 
 	static logout( noRedirect ) {
 		this.setToken(null);
+		this.removeMe();
 		if( !noRedirect ) {
 			document.location.hash="#/login";
 		}
@@ -31,7 +57,8 @@ export default class Auth	{
 		if ( response ) {
 
 			if ( response.data && response.data.data ) {
-				//TODO SAVE USER INTO LOCAL STORAGE ???
+				const user = response.data.data;
+				Auth.setMe(user);
 			}
 
 			if ( response.headers ) {
