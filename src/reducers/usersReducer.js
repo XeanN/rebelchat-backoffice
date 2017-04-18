@@ -13,7 +13,7 @@ export default function reducer(
 		fetchedUser: false,
 		errorUser: null,
 		singleUser: null,
-		
+
 		//SELECTED USER
 		userIsSelected: false,
 		selectedUser: {
@@ -27,6 +27,15 @@ export default function reducer(
 	action
 ){
 	switch (action.type) {
+		case 'GET_USERS_ON_FULFILLED':
+			return {
+				...state,
+				list: {
+					...state['list'],
+					[action.payload.key]: action.payload.user
+				}
+			}
+			break;
 		case 'GET_USERS_PENDING':
 			return {
 				...state,

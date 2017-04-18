@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
-import { getUsers } from "../../actions/userActions";
+import { getUsers, getUsers2 } from "../../actions/userActions";
 import Spinner from "../common/spinner";
 import ContactLink from "../common/contactLink";
 
@@ -22,7 +22,7 @@ export default class Sidebar extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.dispatch(getUsers());
+		this.props.dispatch(getUsers2());
 	}
 
 	sortUsers(users) {
@@ -128,18 +128,19 @@ export default class Sidebar extends React.Component {
 	render() {
 		const {users, error, fetching, fetched} = this.props;
 		let body = null;
-
-		switch (true) {
-			case fetching:
-				body = this.renderFetching();
-				break;
-			case error != null:
-				body = this.renderError( error );
-				break;
-			case fetched:
-				body = this.renderFetched( users );
-				break;
-		}
+		body = this.renderFetched( users );
+		//REMOVE THIS BECAUSE THE USER ARE GETTING VIA ON FIREBASE EVENT
+		// switch (true) {
+		// 	case fetching:
+		// 		body = this.renderFetching();
+		// 		break;
+		// 	case error != null:
+		// 		body = this.renderError( error );
+		// 		break;
+		// 	case fetched:
+		// 		body = this.renderFetched( users );
+		// 		break;
+		// }
 
 		return (
 			<div className="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50 mCustomScrollbar">

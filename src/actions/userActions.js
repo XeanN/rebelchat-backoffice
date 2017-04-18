@@ -1,6 +1,8 @@
 "use strict";
 import User from "../models/user";
 import { OK } from "../settings";
+import { CONFIG_DB } from '../firebase';
+import CONFIG from '../../config';
 
 export function getUsers() {
 	return function(dispatch) {
@@ -44,6 +46,32 @@ export function getUsers() {
 		// }, 2000);
 
 	}
+}
+
+export function getUsers2() {
+	const userRef = CONFIG_DB.ref().child(
+		'users'
+	).child(
+		CONFIG.ORGINAZTION_ID
+	).orderByChild(
+		"roles"
+	).equalTo(
+		0
+	)
+	return function(dispatch) {
+		userRef.on('child_added', function(snap){
+			dispatch(
+				{
+					type: "GET_USERS_ON_FULFILLED",
+					payload: {
+						user: snap.val(),
+						key: snap.key
+					}
+				}
+			);
+		})
+	}
+
 }
 
 export function getUserAndSetSelected(id) {
