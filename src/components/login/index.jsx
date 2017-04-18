@@ -1,15 +1,23 @@
 import React from 'react';
 import { Textfield } from "react-mdl";
 import  User  from "../../models/user";
+import Notification  from 'react-notification-system';
+import ServerErrorHandler from '../../helpers/serverErrorHandler';
+import Auth from '../../auth';
 
 export default class Login extends React.Component {
 
 	constructor (props) {
 		super(props);
+		this._notificationSystem = null;
 		this.state = {
 			email: '',
 			password: ''
 		}
+	}
+
+	componentDidMount() {
+		this._notificationSystem = this.refs.notification;
 	}
 
 	handleChange(key, event) {
@@ -20,11 +28,14 @@ export default class Login extends React.Component {
 
 	login(event) {
 		event.preventDefault();
-		User.login(this.state).then((data, test, a) => {
-			console.log(data, test, a);
+		User.login(this.state).then((data) => {
+			Auth.authenticate(data);
 			document.location.hash = "#/lobby/home";
-		}).catch( error=>{
-			console.log(error);
+		}).catch(error => {
+			const _error = new ServerErrorHandler(error);
+			this._notificationSystem.addNotification(
+				_error.getErrorNotificationObject()
+			);
 		})
 	}
 
@@ -58,6 +69,7 @@ export default class Login extends React.Component {
 
 					</form>
 				</div>
+				<Notification ref="notification"/>
 			</div>
 		);
 	}

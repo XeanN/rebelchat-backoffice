@@ -2,6 +2,7 @@
 import React from 'react';
 import { Route,IndexRoute } from 'react-router';
 import App from './app';
+import Index from './index';
 import Login from './login';
 import Home from './home';
 import Messages from './messages';
@@ -11,14 +12,16 @@ import RouterHelper  from '../helpers/routerHelper';
 //FOR CHUNK NAMES AND ES6 YOU SHOULD PUT "DEFAULT"
 export default (
 	<Route path="/" component={App} >
-		<IndexRoute component={Login}  />
+		<IndexRoute component={Index} onEnter={ RouterHelper.redirectToHome }/>
 		<Route
 			path="/login"
 			component={ Login }
+			onEnter={ RouterHelper.validateAuth }
 		/>
 		<Route
 			path="/lobby"
 			component={Layout}
+			onEnter={ RouterHelper.requireAuth }
 		>
 			<Route
 				path="user/:id/messages"
@@ -27,6 +30,7 @@ export default (
 			<Route
 				path="home"
 				component={ Home }
+				onEnter={ RouterHelper.requireAuth }
 			/>
 		</Route>
 
