@@ -4,6 +4,7 @@ import { Route,IndexRoute } from 'react-router';
 import App from './app';
 import Index from './index';
 import Login from './login';
+import Settings from './settings';
 import Home from './home';
 import Messages from './messages';
 import Layout from './layout';
@@ -30,6 +31,11 @@ export default (
 			<Route
 				path="home"
 				component={ Home }
+				onEnter={ RouterHelper.requireAuth }
+			/>
+			<Route
+				path="settings"
+				component={ Settings }
 				onEnter={ RouterHelper.requireAuth }
 			/>
 		</Route>

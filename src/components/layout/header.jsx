@@ -15,6 +15,11 @@ export default class Header extends React.Component {
 		Auth.logout();
 	}
 
+	displaySettings(event) {
+		event.preventDefault();
+		document.location.hash = '#/lobby/settings';
+	}
+
 	render() {
 		const user = Auth.getMe();
 		return (
@@ -30,6 +35,7 @@ export default class Header extends React.Component {
 						id="hdrbtn"
 						title="settings"
 						style={{'marginRight':'10px'}}
+						onClick={this.displaySettings.bind(this)}
 					>
 						<i className="material-icons">settings</i>
 					</button>

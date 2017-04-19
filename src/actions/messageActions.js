@@ -96,8 +96,8 @@ export function sendMessage(userId, message) {
 }
 
 export function newServerMessage(message) {
-	message.createdAt = firebase.database.ServerValue.TIMESTAMP
-	message.id = firebase.database.ServerValue.TIMESTAMP
+	message.createdAt =  (+ new Date())
+	message.id =  (+ new Date())
 	return function(dispatch) {
 		dispatch(
 			{
