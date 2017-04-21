@@ -267,3 +267,31 @@
 .login-button{
   width: 100%;
 }
+
+.settings-title{
+	position: absolute;
+	margin-top: 2px;
+}
+
+.rebelchat-img-sm {
+	width: 46px;
+	height: 46px;
+}
+
+img.rebelchat-img{
+	background-color: transparent;
+	box-shadow: none;
+	border: none;
+	-webkit-box-shadow:none;
+}
+
+.rebelchat-avatar-selected {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	-webkit-border-radius: 99em !important;
+	-moz-border-radius: 99em !important;
+	border-radius: 99em !important;
+	border: 5px solid #21ade7 !important;
+	 box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3) !important;;
+}

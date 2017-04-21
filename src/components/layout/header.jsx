@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { findDOMNode } from 'react-dom';
+import { connect } from "react-redux";
 import Auth from '../../auth';
+import { setAdminUser } from '../../actions/userActions';
 
+@connect((store) => {
+	return {
+		admin: store.users.admin
+	}
+})
 export default class Header extends React.Component {
 	constructor (props) {
 		super(props);
@@ -15,19 +22,29 @@ export default class Header extends React.Component {
 		Auth.logout();
 	}
 
+	componentWillMount() {
+		if ( ! this.props.admin ) {
+			const user = Auth.getMe();
+			this.props.dispatch(setAdminUser(user));
+		}
+	}
+
 	displaySettings(event) {
 		event.preventDefault();
 		document.location.hash = '#/lobby/settings';
 	}
 
 	render() {
-		const user = Auth.getMe();
+		let name = 'loading...';
+		if ( this.props.admin ) {
+			name = this.props.admin.name;
+		}
 		return (
 			<header className="demo-header mdl-layout__header mdl-color--white mdl-color-text--grey-600">
 
 				<div className="mdl-layout__header-row	mdl-color-text--grey-600">
 					<span className="mdl-layout-title">
-						Welcome { user.name }
+						Welcome { name }
 					</span>
 					<div className="mdl-layout-spacer"></div>
 					<button

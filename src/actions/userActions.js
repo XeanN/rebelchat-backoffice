@@ -130,3 +130,14 @@ export function setSelectedUser(user) {
 		);
 	}
 }
+
+export function setAdminUser(admin) {
+	return function( dispatch) {
+		dispatch(
+			{
+				type: "SET_SELECTED_ADMIN",
+				payload: admin
+			}
+		);
+	}
+}

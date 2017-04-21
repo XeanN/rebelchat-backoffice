@@ -42,7 +42,7 @@ export default class Auth	{
 	}
 
 	static loggedIn() {
-		return !!this.getToken();
+		return  !!this.getToken();
 	}
 
 	static logout( noRedirect ) {

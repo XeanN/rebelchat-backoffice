@@ -23,6 +23,8 @@ export default function reducer(
 			chatSettings: null
 		},
 
+		//SELECTED ADMIN
+		admin: null
 	},
 	action
 ){
@@ -97,6 +99,12 @@ export default function reducer(
 				...state,
 				selectedUser: action.payload,
 				userIsSelected: true
+			}
+			break;
+		case 'SET_SELECTED_ADMIN':
+			return {
+				...state,
+				admin: action.payload,
 			}
 			break;
 	}

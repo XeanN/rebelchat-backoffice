@@ -1,10 +1,15 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { Textfield } from "react-mdl";
 import  User  from "../../models/user";
 import Notification  from 'react-notification-system';
 import ServerErrorHandler from '../../helpers/serverErrorHandler';
 import Auth from '../../auth';
+import { setAdminUser } from '../../actions/userActions';
 
+@connect((store) => {
+	admin: store.users.admin
+})
 export default class Login extends React.Component {
 
 	constructor (props) {
@@ -30,8 +35,12 @@ export default class Login extends React.Component {
 		event.preventDefault();
 		User.login(this.state).then((data) => {
 			Auth.authenticate(data);
+			if ( data && data.data && data.data.data ) {
+				this.props.dispatch(setAdminUser(data.data.data));
+			}
 			document.location.hash = "#/lobby/home";
 		}).catch(error => {
+			console.log(error);
 			const _error = new ServerErrorHandler(error);
 			this._notificationSystem.addNotification(
 				_error.getErrorNotificationObject()
