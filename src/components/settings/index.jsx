@@ -85,7 +85,7 @@ export default class Messages extends React.Component {
 						</h5>
 						<div className="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
 							<Checkbox label="I would like to receive sounds notifications for the messages " ripple defaultChecked />
-							<Checkbox label="I would like to receive web notifications for the messages " ripple defaultChecked />
+							// <Checkbox label="I would like to receive web notifications for the messages " ripple defaultChecked />
 						</div>
 
 					</div>
