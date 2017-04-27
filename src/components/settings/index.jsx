@@ -63,7 +63,14 @@ export default class Messages extends React.Component {
 
 	render() {
 		let body = null;
-		const pictures = this.displayProfilePictures();
+		// const pictures = this.displayProfilePictures();
+		// <h5>
+		// 	<i className="material-icons rules-icon">account_box</i>
+		// 	<span className="settings-title">Profile Image</span>
+		// </h5>
+		// <div className="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+		// 	{pictures}
+		// </div>
 		return (
 			<section className="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 				<div className="mdl-card mdl-cell mdl-cell--12-col">
@@ -80,13 +87,7 @@ export default class Messages extends React.Component {
 							<Checkbox label="I would like to receive sounds notifications for the messages " ripple defaultChecked />
 							<Checkbox label="I would like to receive web notifications for the messages " ripple defaultChecked />
 						</div>
-						<h5>
-							<i className="material-icons rules-icon">account_box</i>
-							<span className="settings-title">Profile Image</span>
-						</h5>
-						<div className="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-							{pictures}
-						</div>
+
 					</div>
 				</div>
 			</section>

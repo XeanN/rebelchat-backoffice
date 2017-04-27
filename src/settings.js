@@ -27,3 +27,5 @@ export const OK = 200;
 export const NO_CONTENT = 204;
 
 export const DUPLICATED = 409;
+
+export let  LOADING_ON_EVENTS = true;

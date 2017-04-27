@@ -40,6 +40,18 @@ export default class ContactLink extends React.Component {
 		this.props.dispatch(getMessagesByUser(this.state.user.id));
 	}
 
+	truncateEmail(email) {
+		if ( email ) {
+			// const tokens = email.split('@');
+			let shortName = email
+			if ( shortName.length > 15 ) {
+				shortName = shortName.substring(0, 15) + '...'
+			}
+			return shortName;
+		}
+
+		return email;
+	}
 
 	render() {
 		const error = this.props.error;
@@ -49,15 +61,17 @@ export default class ContactLink extends React.Component {
 			userNewMessages = this.props.newClientMessage[this.state.user.id];
 			newMessagesCount = userNewMessages ? Object.keys(userNewMessages).length : 0
 		}
+		const email = this.truncateEmail(this.state.user.email);
 
 		return (
 			<a
+				title={this.state.user.email}
 				className="left-menu-option mdl-navigation__link"
 				href={'#lobby/user/' + this.state.user.id  +'/messages'}
 				onClick={this.handleClick}
 			>
 				<span className="fa fa-inbox fa-lg" role="presentation"></span>
-				&nbsp;&nbsp;&nbsp;{this.state.user.email}
+				&nbsp;&nbsp;&nbsp;<span>{email}</span>
 				<ContactBadge count={newMessagesCount}/>
 			</a>
 		)

@@ -1,7 +1,7 @@
 "use strict";
 import { MESSAGE_DB } from "../firebase";
 import firebase from 'firebase';
-import { SERVER_SOURCE } from '../settings';
+import { SERVER_SOURCE, NEW_MESSAGE_SOUND, LOADING_ON_EVENTS } from '../settings';
 
 export function getMessagesByUser(userId) {
 	const path = '/messages/' + userId  +'/';
@@ -39,7 +39,7 @@ export function onNewMessageByUser(userId) {
 	const path = '/messages/' + userId	+'/';
 	return function(dispatch) {
 		try {
-			MESSAGE_DB.ref(path).orderByChild('createdAt').on('child_added', function(snap){
+			MESSAGE_DB.ref(path).limitToLast(1).on('child_added', function(snap){
 
 				dispatch(
 					{
@@ -51,7 +51,17 @@ export function onNewMessageByUser(userId) {
 						}
 					}
 				);
+
+				
+				if ( Audio ) {
+					const audio = new Audio([NEW_MESSAGE_SOUND]);
+					if ( audio ) {
+						audio.play();
+					}
+				}
 			});
+
+
 		} catch (e) {
 			dispatch(
 				{
