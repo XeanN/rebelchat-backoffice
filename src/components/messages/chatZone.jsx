@@ -4,12 +4,7 @@ import {IconButton, Textfield } from 'react-mdl';
 import { sendMessage, newServerMessage } from "../../actions/messageActions";
 import { SERVER_SOURCE } from '../../settings';
 
-@connect((store) => {
-	return {
-		selectedUser: store.users.selectedUser,
-		userIsSelected: store.users.userIsSelected
-	}
-})
+
 export default class ChatZone extends React.Component {
 
 	constructor (props) {

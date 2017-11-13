@@ -1,4 +1,17 @@
 {
-  "presets": ["es2015", "react", "stage-0"],
-  "plugins": ["transform-decorators-legacy"]
+  "presets": [
+    "es2015",
+    "stage-2",
+    "react"
+  ],
+  "plugins": [
+    "react-hot-loader/babel" // Enables React code to work with HMR.
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
+    }
+  }
 }

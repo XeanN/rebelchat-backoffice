@@ -5,11 +5,7 @@ import { connect } from "react-redux";
 import Auth from '../../auth';
 import { setAdminUser } from '../../actions/userActions';
 
-@connect((store) => {
-	return {
-		admin: store.users.admin
-	}
-})
+
 export default class Header extends React.Component {
 	constructor (props) {
 		super(props);

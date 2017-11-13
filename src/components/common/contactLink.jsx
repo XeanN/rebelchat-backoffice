@@ -7,13 +7,6 @@ import { getMessagesByUser } from "../../actions/messageActions";
 import { onNewMessageByUser, clearNewClientMessages } from "../../actions/messageActions";
 import { Badge } from 'react-mdl';
 
-@connect((store) => {
-	return {
-		error: store.users.error,
-		newClientMessage: store.messages.newClientMessage,
-		selectedUser: store.users.selectedUser,
-	}
-})
 export default class ContactLink extends React.Component {
 
 	constructor (props) {

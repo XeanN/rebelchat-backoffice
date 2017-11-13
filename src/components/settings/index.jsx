@@ -13,11 +13,6 @@ import Avatar from '../../models/avatar';
 
 // const DEFAULT_ERROR_MESSAGE = "There was a problem loading the conversation";
 
-@connect((store) => {
-	return {
-		admin: store.users.admin
-	}
-})
 export default class Messages extends React.Component {
 
 	constructor (props) {

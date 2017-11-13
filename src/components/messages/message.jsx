@@ -5,11 +5,7 @@ import { getUsers } from "../../actions/messageActions";
 import CommonHelper from "../../helpers/commonHelper";
 import { CLIENT_SOURCE, SERVER_SOURCE } from '../../settings';
 
-@connect((store) => {
-	return {
-		selectedUser: store.users.selectedUser,
-	}
-})
+
 export default class Message extends React.Component {
 
 	constructor (props) {

@@ -7,14 +7,6 @@ import ContactLink from "../common/contactLink";
 
 const DEFAULT_ERROR_MESSAGE = "There was a problem loading the users";
 
-@connect((store) => {
-	return {
-		users: store.users.list,
-		error: store.users.error,
-		fetching: store.users.fetching,
-		fetched: store.users.fetched,
-	}
-})
 export default class Sidebar extends React.Component {
 
 	constructor (props) {

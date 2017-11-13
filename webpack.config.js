@@ -3,93 +3,59 @@ path = require('path'),
 fs = require('fs'),
 HtmlWebpackPlugin = require('html-webpack-plugin'),
 CopyWebpackPlugin = require('copy-webpack-plugin');
+Dotenv = require('dotenv-webpack');
 
-/* babel */
-const babelSettings = JSON.parse(fs.readFileSync(".babelrc"));
+const debug = process.argv.indexOf('-p') === -1;
+
 const config = {
 	entry: [
 		'./src/index.js'
 	],
-	module: {
-		loaders: [
-			{
-				test: /\.jsx|.js$/,
-				exclude: /(node_modules)/,
-				loader: "babel-loader",
-				query: babelSettings
-			}
-		],
-		noParse: [/autoit.js/]
-	},
-	resolve: {
-		modulesDirectories:['./app','node_modules'],
-		extensions: [
-			'',
-			'.js',
-			'.jsx'
-		]
-	},
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'js/bundle.js'
 	},
-	// externals: {
-	// 	"jquery": "jQuery"
-	// },
+	resolve: {
+		extensions: ['.js','.jsx']
+	},
+	devServer: {
+		contentBase: path.resolve(__dirname, 'public'),
+		host: '0.0.0.0',
+		port: 9000,
+		inline: true,
+		hot: true
+	},
+	module: {
+		loaders: [
+			{
+				test: /\.(js|jsx)$/,
+				use: ['babel-loader'],
+				exclude: /node_modules/
+			},
+		]
+	},
 	plugins: [
-
+		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'public/index.html'),
 			hash: true,
 			filename: 'index.html',
 			inject: 'body'
 		}),
-
-		new webpack.DefinePlugin({
-			'process.env': {
-				'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-			}
-		}),
+		new CopyWebpackPlugin([
+			{ from: 'public/css', to: 'css' },
+			{ from: 'public/fonts', to: 'fonts' },
+			{ from: 'public/images', to: 'images' },
+			{ from: 'public/favicon.ico', to: './' },
+			{ from: 'public/manifest.json', to: './' }
+		]),
+		new Dotenv({ path: './.env', safe: false })
 	]
 };
 
-if (process.env.NODE_ENV === 'development') {
-	/*
-	This config is for webpack-dev-server so overwrite the output path
-	and add hotloader and server config
-	*/
-	config.devtool = "source-map";
-	config.output.path = path.resolve(__dirname, 'public');
-	config.entry.push('whatwg-fetch');
-	config.entry.push('webpack-dev-server/client?http://localhost:3000');
-	config.entry.push('webpack/hot/dev-server');
-
-	config.module.loaders.unshift({
-		test: /\.jsx|.js$/,
-		exclude: /(node_modules)/,
-		loader: 'react-hot'
-	});
-	config.plugins.push(
-		new webpack.HotModuleReplacementPlugin()
-	);
-	config.devServer = {
-		contentBase: path.resolve(__dirname, 'public'),
-		hot: true,
-		port: 3000
-	};
-
+if (!debug) {
+	// TODO: ADD SOMETHING FOR PRODUCTION
 } else {
-	config.devtool = "source-map";
-	config.plugins.push(
-		new CopyWebpackPlugin([
-			{from: 'public/css', to: 'css' },
-			{from: 'public/fonts', to: 'fonts' },
-			{from: 'public/images', to: 'images' },
-			{from: 'public/js', to: 'js' },
-			{from: 'public/favicon.ico', to: './' },
-			{from: 'public/manifest', to: './' }
-		])
-	);
+	config.devtool = 'source-map';
 }
-
-module.exports = config
+module.exports = config;

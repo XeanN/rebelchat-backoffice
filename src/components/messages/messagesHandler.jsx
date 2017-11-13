@@ -6,13 +6,7 @@ import CommonHelper from "../../helpers/commonHelper";
 import Message from './message';
 import ScrollArea from 'react-scrollbar';
 
-@connect((store) => {
-	return {
-		selectedUser: store.users.selectedUser,
-		newServerMessage: store.messages.newServerMessage,
-		newClientMessage: store.messages.newClientMessage
-	}
-})
+
 export default class MessageHandler extends React.Component {
 
 	constructor (props) {

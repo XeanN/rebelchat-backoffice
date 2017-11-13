@@ -7,9 +7,6 @@ import ServerErrorHandler from '../../helpers/serverErrorHandler';
 import Auth from '../../auth';
 import { setAdminUser } from '../../actions/userActions';
 
-@connect((store) => {
-	admin: store.users.admin
-})
 export default class Login extends React.Component {
 
 	constructor (props) {

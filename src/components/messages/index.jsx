@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from "react-redux";
+
 import { Menu, MenuItem, IconButton } from 'react-mdl';
 import Message from './message';
 import { getUserAndSetSelected } from "../../actions/userActions";
@@ -12,27 +12,7 @@ import Spinner from "../common/spinner";
 
 const DEFAULT_ERROR_MESSAGE = "There was a problem loading the conversation";
 
-@connect((store) => {
-	return {
-		selectedUser: store.users.selectedUser,
-		userIsSelected: store.users.userIsSelected,
 
-		users: store.users.list,
-		userError: store.users.error,
-		userFetching: store.users.fetching,
-		userFetched: store.users.fetched,
-
-		fetchingUser: store.users.fetchingUser,
-		fetchedUser: store.users.fetchedUser,
-		errorUser: store.users.errorUser,
-		singleUser: store.users.singleUser,
-
-		messages: store.messages.list,
-		messageError: store.messages.error,
-		messageFetching: store.messages.fetching,
-		messageFetched: store.messages.fetched
-	}
-})
 export default class Messages extends React.Component {
 
 	constructor (props) {
