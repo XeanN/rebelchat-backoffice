@@ -1,18 +1,16 @@
-import { Router, hashHistory } from 'react-router';
+import { HashRouter as Router } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import routes from './components/routes.jsx';
+import routes from './routes';
 import { Provider } from 'react-redux';
 import store from './store';
 
 const APPLICATION  = (
-	// <MuiThemeProvider muiTheme={getMuiTheme()}>
-		<Provider store={store}>
-			<Router history={hashHistory}>
-				{routes}
-			</Router>
-		</Provider>
-	// </MuiThemeProvider>
+	<Provider store={store}>
+		<Router>
+			{routes}
+		</Router>
+	</Provider>
 );
 
 ReactDOM.render(
