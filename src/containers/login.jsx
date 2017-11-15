@@ -8,6 +8,8 @@ import Notification from 'react-notification-system';
 // import Auth from '../../auth';
 // import { setAdminUser } from '../../actions/userActions';
 
+import '../styles/containers/login.css';
+
 export class LoginContainer extends React.Component {
 
 	constructor(props) {
@@ -29,54 +31,17 @@ export class LoginContainer extends React.Component {
 		this.setState(state);
 	}
 
-	login(event) {
-		event.preventDefault();
-		// User.login(this.state).then((data) => {
-		// 	Auth.authenticate(data);
-		// 	if (data && data.data && data.data.data) {
-		// 		this.props.dispatch(setAdminUser(data.data.data));
-		// 	}
-		// 	document.location.hash = "#/lobby/home";
-		// }).catch(error => {
-		// 	console.log(error);
-		// 	const _error = new ServerErrorHandler(error);
-		// 	this._notificationSystem.addNotification(
-		// 		_error.getErrorNotificationObject()
-		// 	);
-		// })
-	}
-
 	render() {
-		const buttonClasses = "login-button mdl-button mdl-js-button "
-			+ "mdl-button--raised mdl-js-ripple-effect mdl-color--cyan-500 "
-			+ "mdl-color-text--white";
 		return (
-			<div className="login-bg text-center">
-				<div className="login-container mdl-shadow--2dp">
-					<img src="images/logo.png" width="150px" height="auto" />
-					<form>
-						<Textfield
-							label="Email"
-							onChange={(this.handleChange.bind(this, 'email'))}
-							style={{ 'width': '100%' }}
-						/>
-						<Textfield
-							label="Password"
-							onChange={this.handleChange.bind(this, 'password')}
-							type="password"
-							style={{ 'width': '100%' }}
-						/>
-						<button
-							onClick={this.login.bind(this)}
-							disabled={this.state.loading}
-							className={buttonClasses}
-						>
-							Log In
-						</button>
-
-					</form>
-				</div>
-				{/* <Notification ref="notification" /> */}
+			<div className="container-fluid login-container">
+				<form className="form-signin text-center">
+					<img className="login-logo" src="images/logo.png" width="100px" height="auto" />
+					<label for="inputEmail" className="sr-only">Email address</label>
+					<input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autofocus=""/>
+					<label for="inputPassword" className="sr-only">Password</label>
+					<input type="password" id="inputPassword" className="form-control" placeholder="Password" required=""/>
+					<button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+				</form>
 			</div>
 		);
 	}

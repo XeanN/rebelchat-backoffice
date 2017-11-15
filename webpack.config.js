@@ -32,6 +32,23 @@ const config = {
 				use: ['babel-loader'],
 				exclude: /node_modules/
 			},
+			{
+				test: /\.css/,
+				loaders: [
+					{
+						loader: 'style-loader',
+					},
+					{
+						loader: "css-loader",
+						options: {
+							localIdentName: debug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+							module: false,
+							sourceMap: debug,
+							minimize: !debug
+						}
+					}
+				],
+			},
 		]
 	},
 	plugins: [
