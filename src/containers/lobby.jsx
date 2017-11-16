@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-
+import { FaCog, FaSignOut } from 'react-icons/lib/fa';
 import '../styles/containers/lobby.css';
 
 export class LobbyContainer extends React.Component {
@@ -56,15 +56,22 @@ export class LobbyContainer extends React.Component {
 					<Navbar color="faded" light expand="md">
 						<NavbarBrand href="javascript:void(0)" onClick={this.toogleSideBar}>
 							<img src="/images/logo.png" width="30" height="30" alt="" />
+							<span className="nav-title">#Lobby</span>
 						</NavbarBrand>
 						<NavbarToggler onClick={this.toggle} />
 						<Collapse isOpen={this.state.isOpen} navbar>
 							<Nav className="ml-auto" navbar>
 								<NavItem>
-									<NavLink href="/components/">Components</NavLink>
+									<NavLink href="/components/" title="Settings">
+										<FaCog className="nav-option-icon" size={30}/>
+										<span className="nav-option-text">Settings</span>
+									</NavLink>
 								</NavItem>
 								<NavItem>
-									<NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+									<NavLink href="/components/" title="Log Out">
+										<FaSignOut className="nav-option-icon" size={30} />
+										<span className="nav-option-text">Log Out</span>
+									</NavLink>
 								</NavItem>
 							</Nav>
 						</Collapse>

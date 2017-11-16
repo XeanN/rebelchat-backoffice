@@ -23,6 +23,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-icons": "^2.2.7",
     "react-notification-system": "^0.2.13",
     "react-redux": "^5.0.3",
     "react-router-dom": "^4.2.2",
