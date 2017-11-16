@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import { Textfield } from "react-mdl";
 // import User from "../../models/user";
 import Notification from 'react-notification-system';
 // import ServerErrorHandler from '../../helpers/serverErrorHandler';
