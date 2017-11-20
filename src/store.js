@@ -1,18 +1,16 @@
 import {applyMiddleware, createStore} from "redux";
 import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import { createEpicMiddleware } from 'redux-observable';
 import logger from "redux-logger";
 import reducer from "./reducers";
-import { rootEpic } from './epics';
 
-const epicMiddleware = createEpicMiddleware(rootEpic);
 const getMiddleware = () => {
 	if (process.env.NODE_ENV === 'production') {
-		return applyMiddleware(epicMiddleware);
+
 	}
 	// ENABLE ADDITIONAL LOGGING IN NON-PRODUCTION ENVIRONMENTS.
-	return applyMiddleware(epicMiddleware, createLogger());
+	return applyMiddleware(createLogger(), thunk);
 };
 
 const store = createStore(reducer, composeWithDevTools(getMiddleware()));

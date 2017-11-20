@@ -9,7 +9,7 @@ const debug = process.argv.indexOf('-p') === -1;
 
 const config = {
 	entry: [
-		'./src/index.js'
+		'./src/index.jsx'
 	],
 	output: {
 		path: path.resolve(__dirname, 'build'),
