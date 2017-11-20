@@ -1,7 +1,8 @@
-import { AUTH_LOGIN_REJECTED, AUTH_LOGIN_FULFILLMENT } from '../constants/actions/auth';
+import { AUTH_LOGIN_REJECTED, AUTH_LOGIN_FULFILLMENT, AUTH_LOGIN_PROGRESS } from '../constants/actions/auth';
 
 const defaultState = {
-	authenticated: false
+	authenticated: false,
+	progress: false
 };
 
 export default function AuthReducer(state = defaultState, action) {
@@ -10,12 +11,19 @@ export default function AuthReducer(state = defaultState, action) {
 		case AUTH_LOGIN_FULFILLMENT:
 			return {
 				...state,
-				authenticated: true
+				authenticated: true,
+				progress: false
 			}
 		case AUTH_LOGIN_REJECTED:
 			return {
 				...state,
-				authenticated: false
+				authenticated: false,
+				progress: false
+			}
+		case AUTH_LOGIN_PROGRESS:
+			return {
+				...state,
+				progress: true
 			}
 		default:
 			return state;

@@ -30,15 +30,15 @@ class LoginContainer extends React.Component {
 	}
 
 	handleLogin() {
-		this.props.login(this.state);
+		this.props.login(this.state.email, this.state.password);
 	}
 
 	render() {
+		const { progress } = this.props;
 		return (
 			<div className="container-fluid login-container">
 				<form className="form-signin text-center">
 					<img className="login-logo" src="images/logo.png" width="100px" height="auto" />
-
 					<label htmlFor="inputEmail" className="sr-only">Email address</label>
 					<input
 						type="email"
@@ -64,8 +64,9 @@ class LoginContainer extends React.Component {
 						className="btn btn-lg btn-primary btn-block"
 						type="submit"
 						onClick={this.handleLogin}
+						disabled={progress}
 					>
-						Sign in
+						<strong>{progress ? 'loading...' : 'Submit'}</strong>
 					</button>
 				</form>
 			</div>
@@ -75,7 +76,8 @@ class LoginContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		authenticated: state.authenticated
+		authenticated: state.auth.authenticated,
+		progress: state.auth.progress
 	}
 };
 

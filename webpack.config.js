@@ -73,6 +73,6 @@ const config = {
 if (!debug) {
 	// TODO: ADD SOMETHING FOR PRODUCTION
 } else {
-	config.devtool = 'source-map';
 }
+config.devtool = 'source-map';
 module.exports = config;
