@@ -1,5 +1,5 @@
 import { auth } from '../lib/firebase';
-import { AUTH_LOGIN_REJECTED, AUTH_LOGIN_FULFILLMENT, AUTH_LOGIN_PROGRESS } from '../constants/actions/auth';
+import { AUTH_LOGIN_REJECTED, AUTH_LOGIN_FULFILLMENT, AUTH_LOGIN_PROGRESS, AUTH_LOGOUT_REJECTED, AUTH_LOGOUT_FULFILLMENT } from '../constants/actions/auth';
 
 export const login = (email, password) => {
 	return dispatch => {
@@ -9,6 +9,28 @@ export const login = (email, password) => {
 		}).catch((error) => {
 			return dispatch(loginError());
 		});
+	}
+}
+
+export const logout = () => {
+	return dispatch => {
+		auth.signOut().then(() => {
+			return dispatch(logoutOk());
+		}).catch((error) => {
+			return dispatch(logoutError());
+		});
+	}
+}
+
+export const logoutOk = () => {
+	return {
+		type: AUTH_LOGOUT_FULFILLMENT
+	}
+}
+
+export const logoutError = () => {
+	return {
+		type: AUTH_LOGOUT_REJECTED
 	}
 }
 

@@ -1,22 +1,29 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { logout } from '../actions/auth';
 import { bindActionCreators } from 'redux';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { FaCog, FaSignOut } from 'react-icons/lib/fa';
 import '../styles/containers/lobby.css';
 
-export class LobbyContainer extends React.Component {
+class LobbyContainer extends React.Component {
 
 	constructor(props) {
 		super(props);
 
-		this.toggle = this.toggle.bind(this);
-		this.toogleSideBar = this.toogleSideBar.bind(this);
 		this.state = {
 			isOpen: false,
 			cssclass: ''
 		};
+		this.toggle = this.toggle.bind(this);
+		this.toogleSideBar = this.toogleSideBar.bind(this);
+		this.logout = this.logout.bind(this);
 	}
+
+	logout() {
+		this.props.logout();
+	}
+
 	toggle() {
 		this.setState({
 			isOpen: !this.state.isOpen
@@ -68,7 +75,7 @@ export class LobbyContainer extends React.Component {
 									</NavLink>
 								</NavItem>
 								<NavItem>
-									<NavLink href="/components/" title="Log Out">
+									<NavLink href="#" title="Log Out" onClick={this.logout}>
 										<FaSignOut className="nav-option-icon" size={30} />
 										<span className="nav-option-text">Log Out</span>
 									</NavLink>
@@ -105,7 +112,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-
+	logout
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LobbyContainer);
