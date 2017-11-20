@@ -34,7 +34,7 @@ class LoginContainer extends React.Component {
 	}
 
 	render() {
-		const { progress } = this.props;
+		const { progress, authenticated } = this.props;
 		return (
 			<div className="container-fluid login-container">
 				<form className="form-signin text-center">
