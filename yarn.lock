@@ -4520,7 +4520,14 @@ react-motion@^0.4.3:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
-react-notification-system@^0.2.13:
+react-notification-system-redux@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-notification-system-redux/-/react-notification-system-redux-1.2.0.tgz#14fb0915c72e4c12d9983ffe07254e2cd19ec5df"
+  dependencies:
+    prop-types "^15.6.0"
+    react-notification-system "^0.2.x"
+
+react-notification-system@^0.2.13, react-notification-system@^0.2.x:
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/react-notification-system/-/react-notification-system-0.2.16.tgz#9b9da20b0d34786b60057c52b42516ea1295374a"
   dependencies:

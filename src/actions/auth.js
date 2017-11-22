@@ -1,5 +1,6 @@
 import { auth } from '../lib/firebase';
 import { AUTH_LOGIN_REJECTED, AUTH_LOGIN_FULFILLMENT, AUTH_LOGIN_PROGRESS, AUTH_LOGOUT_REJECTED, AUTH_LOGOUT_FULFILLMENT } from '../constants/actions/auth';
+import Notifications from 'react-notification-system-redux';
 
 export const login = (email, password) => {
 	return dispatch => {
@@ -7,7 +8,8 @@ export const login = (email, password) => {
 		auth.signInWithEmailAndPassword(email, password).then( (user) =>{
 			return dispatch(loginOK());
 		}).catch((error) => {
-			return dispatch(loginError());
+			dispatch(Notifications.error(error));
+			return dispatch(loginError(error));
 		});
 	}
 }
@@ -40,9 +42,10 @@ export const loginProgress = () => {
 	}
 }
 
-export const loginError = () => {
+export const loginError = (error) => {
 	return {
-		type: AUTH_LOGIN_REJECTED
+		type: AUTH_LOGIN_REJECTED,
+		payload: error
 	}
 }
 

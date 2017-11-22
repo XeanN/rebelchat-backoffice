@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { login } from '../actions/auth';
-// import User from "../../models/user";
-import Notification from 'react-notification-system';
+import Notifications from 'react-notification-system-redux';
 // import ServerErrorHandler from '../../helpers/serverErrorHandler';
 // import Auth from '../../auth';
 // import { setAdminUser } from '../../actions/userActions';
@@ -34,7 +33,7 @@ class LoginContainer extends React.Component {
 	}
 
 	render() {
-		const { progress, authenticated } = this.props;
+		const { progress, authenticated, notifications } = this.props;
 		return (
 			<div className="container-fluid login-container">
 				<form className="form-signin text-center">
@@ -69,14 +68,18 @@ class LoginContainer extends React.Component {
 						<strong>{progress ? 'loading...' : 'Submit'}</strong>
 					</button>
 				</form>
+				<Notifications
+					notifications={notifications}
+				/>
 			</div>
 		);
 	}
 };
 
 const mapStateToProps = (state) => ({
-		authenticated: state.auth.authenticated,
-		progress: state.auth.progress
+	authenticated: state.auth.authenticated,
+	progress: state.auth.progress,
+	notifications: state.notifications,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
