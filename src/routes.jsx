@@ -8,7 +8,7 @@ import checkAuth from './components/common/check-auth';
 
 const routes = (
 	<Switch>
-		<Route exact path="/" component={LoginContainer} />
+		<Route exact path="/" component={checkAuth(LoginContainer)} />
 		<Route exact path="/login" component={checkAuth(LoginContainer)} />
 		<Route path="/lobby" component={requireAuth(LobbyContainer)} />
 		<Route component={NoMatch} />

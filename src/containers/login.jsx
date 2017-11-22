@@ -75,7 +75,6 @@ class LoginContainer extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-
 		authenticated: state.auth.authenticated,
 		progress: state.auth.progress
 });

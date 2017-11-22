@@ -20,6 +20,7 @@ export default function (ComposedComponent) {
 		checkAuthenticatedUser(props) {
 			const userRecentlyAuthenticatd = props.authenticated;
 			const userAlreadyAuthenticatd = auth.currentUser;
+			console.log(userAlreadyAuthenticatd, !!userRecentlyAuthenticatd, AuthManager.checkUserLocalStorage());
 			return (userAlreadyAuthenticatd || !!userRecentlyAuthenticatd || AuthManager.checkUserLocalStorage())
 		}
 
@@ -36,6 +37,7 @@ export default function (ComposedComponent) {
 		}
 
 		render() {
+			console.log(this.state);
 			if (this.state.authenticated) {
 				return <Redirect to='/lobby' />;
 			} else {
@@ -44,7 +46,9 @@ export default function (ComposedComponent) {
 		}
 	}
 
-	const mapStateToProps = state => ({	});
+	const mapStateToProps = state => ({
+		authenticated: state.auth.authenticated
+	});
 
 	return connect(mapStateToProps)(CheckAuthentication);
 }
