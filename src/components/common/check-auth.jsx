@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { auth } from '../../lib/firebase';
+import { Auth } from '../../lib/auth';
+
+const AuthManager = Auth();
 
 export default function (ComposedComponent) {
 
@@ -17,7 +20,7 @@ export default function (ComposedComponent) {
 		checkAuthenticatedUser(props) {
 			const userRecentlyAuthenticatd = props.authenticated;
 			const userAlreadyAuthenticatd = auth.currentUser;
-			return (userAlreadyAuthenticatd || userRecentlyAuthenticatd)
+			return (userAlreadyAuthenticatd || !!userRecentlyAuthenticatd || AuthManager.checkUserLocalStorage())
 		}
 
 		componentWillMount() {
@@ -41,9 +44,7 @@ export default function (ComposedComponent) {
 		}
 	}
 
-	const mapStateToProps = state => ({
-		authenticated: state.auth.authenticated,
-	});
+	const mapStateToProps = state => ({	});
 
 	return connect(mapStateToProps)(CheckAuthentication);
 }
