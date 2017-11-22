@@ -10,6 +10,10 @@ export const Auth = () => {
 		return hasLocalStorageUser;
 	}
 
+	const logOut = () => {
+
+	}
+
 	return {
 		checkUserLocalStorage
 	};

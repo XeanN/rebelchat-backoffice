@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { logout } from '../actions/auth';
+import { toogleLobbySidebar } from '../actions/ui';
 import { bindActionCreators } from 'redux';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { NavBar } from '../components/lobby/navbar';
+import { UserList } from '../components/lobby/userlist';
 import { FaCog, FaSignOut } from 'react-icons/lib/fa';
 import '../styles/containers/lobby.css';
 
@@ -10,79 +12,15 @@ class LobbyContainer extends React.Component {
 
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			isOpen: false,
-			cssclass: ''
-		};
-		this.toggle = this.toggle.bind(this);
-		this.toogleSideBar = this.toogleSideBar.bind(this);
-		this.logout = this.logout.bind(this);
-	}
-
-	logout() {
-		this.props.logout();
-	}
-
-	toggle() {
-		this.setState({
-			isOpen: !this.state.isOpen
-		});
-	}
-
-	toogleSideBar() {
-		let { cssclass } = this.state;
-		if ( cssclass ) {
-			cssclass = ''
-		} else {
-			cssclass = 'active'
-		}
-		this.setState({
-			cssclass
-		})
 	}
 
 	render() {
-		const { cssclass } = this.state;
 		return (
 			<div className="wrapper">
-				<nav id="sidebar" className={cssclass}>
-					<div id="sidebar-wrapper">
-						<div className="sidebar-header">
-							<h3>Company Name</h3>
-						</div>
-						<ul className="list-unstyled components">
-							<li><a href="#">User 1</a></li>
-							<li><a href="#">User 2</a></li>
-							<li><a href="#">User 3</a></li>
-							<li><a href="#">User 4</a></li>
-						</ul>
-					</div>
-				</nav>
+				<UserList sidebarCssClass={this.props.sidebarCssClass}/>
 				<div id="content">
-					<Navbar color="faded" light expand="md">
-						<NavbarBrand href="javascript:void(0)" onClick={this.toogleSideBar}>
-							<img src="/images/logo.png" width="30" height="30" alt="" />
-							<span className="nav-title">#Lobby</span>
-						</NavbarBrand>
-						<NavbarToggler onClick={this.toggle} />
-						<Collapse isOpen={this.state.isOpen} navbar>
-							<Nav className="ml-auto" navbar>
-								<NavItem>
-									<NavLink href="/components/" title="Settings">
-										<FaCog className="nav-option-icon" size={30}/>
-										<span className="nav-option-text">Settings</span>
-									</NavLink>
-								</NavItem>
-								<NavItem>
-									<NavLink href="#" title="Log Out" onClick={this.logout}>
-										<FaSignOut className="nav-option-icon" size={30} />
-										<span className="nav-option-text">Log Out</span>
-									</NavLink>
-								</NavItem>
-							</Nav>
-						</Collapse>
-					</Navbar>
+					<NavBar logout={this.props.logout} toogleLobbySidebar={this.props.toogleLobbySidebar}/>
+
 					<h2>Collapsible Sidebar Using Bootstrap 3</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -108,11 +46,12 @@ class LobbyContainer extends React.Component {
 };
 
 const mapStateToProps = state => ({
-
+	sidebarCssClass: state.ui.sidebarCssClass
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-	logout
+	logout,
+	toogleLobbySidebar
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LobbyContainer);

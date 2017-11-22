@@ -29,7 +29,7 @@ export default function (ComposedComponent) {
 			})
 		}
 
-		componentWillUpdate(nextProps) {
+		componentWillReceiveProps(nextProps) {
 			this.setState({
 				authenticated: this.checkAuthenticatedUser(nextProps)
 			})
