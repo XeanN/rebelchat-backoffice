@@ -6,7 +6,7 @@ import { watchClientAddedEvent, clientSelected } from '../actions/client';
 import { bindActionCreators } from 'redux';
 import { NavBar } from '../components/lobby/navbar';
 import { UserList } from '../components/lobby/userlist';
-import ChatZone from '../components/lobby/chatzone';
+import { ChatZone } from '../components/lobby/chatzone';
 import { FaCog, FaSignOut } from 'react-icons/lib/fa';
 import '../styles/containers/lobby.css';
 
