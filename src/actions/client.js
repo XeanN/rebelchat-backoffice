@@ -4,7 +4,6 @@ import * as CLIENT_ACTIONS from '../constants/actions/client';
 
 export function watchClientAddedEvent(dispatch) {
 	database.ref('/clients').on('child_added', (snap) => {
-		console.log(snap, snap.val())
 		dispatch(getClientAdded(snap.key, snap.val()));
 	});
 }

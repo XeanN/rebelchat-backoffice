@@ -1,7 +1,8 @@
 import * as CLIENT_ACTIONS from '../constants/actions/client';
 
 const defaultState = {
-	list : {}
+	list : {},
+	loading: true
 };
 
 export default function ClientReducer(state = defaultState, action) {
@@ -10,6 +11,7 @@ export default function ClientReducer(state = defaultState, action) {
 		case CLIENT_ACTIONS.CLIENT_CHILD_ADDED:
 			return {
 				...state,
+				loading: false,
 				list: {
 					...state['list'],
 					[action.payload.key]: action.payload.client

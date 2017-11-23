@@ -6,8 +6,8 @@ export class UserList extends React.Component {
 		super(props);
 	}
 
-	generateList(clients) {
-		const arr = [];
+	// CREATE CLIENT OBJECT WITH THE KEY AS PROPERTY
+	mapClientWithKey(clients) {
 		const mclients = [];
 		Object.keys(clients).forEach((key) => {
 			mclients.push(
@@ -16,22 +16,43 @@ export class UserList extends React.Component {
 					...clients[key]
 				}
 			)
-
 		});
-		const sortclients = mclients.sort(function (a, b) {
+		return mclients;
+	}
+
+	//SORT CLIENTS BY LAST ACITIVITY TIMESTAMP
+	sortClientsByLasActivity(clients) {
+		return clients.sort(function (a, b) {
 			return b.lastActivity - a.lastActivity;
 		});
+	}
 
-		sortclients.forEach((client) =>{
-			arr.push(
-				<li key={client.key}>
-					<a id={client.key} href = "#" >
-						{client.email}
-					</a>
-				</li>
+	generateList(clients) {
+		const arr = [];
+		const { loadingClients } = this.props;
+		if ( loadingClients ) {
+			return (
+				// TODO: MAKE A BETTER LOADING STATE
+				<div>
+					Loading clients...
+				</div>
 			)
-		});
-		return arr;
+		} else {
+			if ( clients && Object.keys(clients).length ) {
+				const mclients = this.mapClientWithKey(clients);
+				const sortclients = this.sortClientsByLasActivity(mclients);
+				sortclients.forEach((client) =>{
+					arr.push(
+						<li key={client.key}>
+							<a id={client.key} href = "#">
+								{client.email}
+							</a>
+						</li>
+					)
+				});
+			}
+			return arr;
+		}
 	}
 
 	render() {
