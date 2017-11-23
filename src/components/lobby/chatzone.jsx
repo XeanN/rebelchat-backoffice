@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { Alert } from 'reactstrap';
 import { auth } from '../../lib/firebase';
+import { watchMessagesAddedEvent } from '../../actions/messages';
 
-export class ChatZone extends React.Component {
+class ChatZone extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -21,3 +23,15 @@ export class ChatZone extends React.Component {
 	}
 };
 
+const mapStateToProps = state => ({
+	selectedClient: state.client.selected
+});
+
+const mapDispatchToProps = dispatch => {
+	watchMessagesAddedEvent(dispatch);
+	return {
+
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatZone);

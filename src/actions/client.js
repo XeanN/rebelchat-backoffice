@@ -8,6 +8,15 @@ export function watchClientAddedEvent(dispatch) {
 	});
 }
 
+export const  clientSelected = (clientKey) => {
+	return dispatch => {
+		return dispatch({
+			type: CLIENT_ACTIONS.CLIENT_SELECTED,
+			payload: clientKey
+		})
+	}
+}
+
 
 function getClientAdded(key, client) {
 	return {

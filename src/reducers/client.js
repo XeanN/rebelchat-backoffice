@@ -2,7 +2,8 @@ import * as CLIENT_ACTIONS from '../constants/actions/client';
 
 const defaultState = {
 	list : {},
-	loading: true
+	loading: true,
+	selected: null
 };
 
 export default function ClientReducer(state = defaultState, action) {
@@ -16,6 +17,11 @@ export default function ClientReducer(state = defaultState, action) {
 					...state['list'],
 					[action.payload.key]: action.payload.client
 				}
+			}
+		case CLIENT_ACTIONS.CLIENT_SELECTED:
+			return {
+				...state,
+				selected: action.payload
 			}
 		default:
 			return state;

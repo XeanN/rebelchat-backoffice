@@ -54,7 +54,7 @@ export class UserList extends React.Component {
 				sortclients.forEach((client) =>{
 					arr.push(
 						<li key={client.key} className="client" title={this.getTooltipText(client)}>
-							<a id={client.key} href = "#">
+							<a id={client.key} href="#" onClick={() => this.props.clientSelected(client.key)}>
 								{this.prepareEmail(client.email)}
 							</a>
 						</li>

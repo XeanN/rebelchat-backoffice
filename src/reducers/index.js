@@ -4,6 +4,7 @@ import messages from "./messagesReducer";
 import auth from './auth';
 import client from './client';
 import ui from './ui';
+import message from './message';
 import { reducer as notifications } from 'react-notification-system-redux';
 
 export default combineReducers(
@@ -12,6 +13,7 @@ export default combineReducers(
 		client,
 		messages,
 		auth,
-		ui
+		ui,
+		message
 	}
 );
