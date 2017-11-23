@@ -1,5 +1,5 @@
 import { auth } from '../lib/firebase';
-import { AUTH_LOGIN_REJECTED, AUTH_LOGIN_FULFILLMENT, AUTH_LOGIN_PROGRESS, AUTH_LOGOUT_REJECTED, AUTH_LOGOUT_FULFILLMENT } from '../constants/actions/auth';
+import * as AUTH_ACTIONS  from '../constants/actions/auth';
 import Notifications from 'react-notification-system-redux';
 
 export const login = (email, password) => {
@@ -19,38 +19,47 @@ export const logout = () => {
 		auth.signOut().then(() => {
 			return dispatch(logoutOk());
 		}).catch((error) => {
+			dispatch(Notifications.error(error));
 			return dispatch(logoutError());
 		});
 	}
 }
 
+export const setUserAlreadyAuthenticated = () => {
+	return dispatch => {
+		return dispatch({
+			type: AUTH_ACTIONS.AUTH_USER_ALREADY_AUTHENTICATED
+		})
+	}
+}
+
 export const logoutOk = () => {
 	return {
-		type: AUTH_LOGOUT_FULFILLMENT
+		type: AUTH_ACTIONS.AUTH_LOGOUT_FULFILLMENT
 	}
 }
 
 export const logoutError = () => {
 	return {
-		type: AUTH_LOGOUT_REJECTED
+		type: AUTH_ACTIONS.AUTH_LOGOUT_REJECTED
 	}
 }
 
 export const loginProgress = () => {
 	return {
-		type: AUTH_LOGIN_PROGRESS
+		type: AUTH_ACTIONS.AUTH_LOGIN_PROGRESS
 	}
 }
 
 export const loginError = (error) => {
 	return {
-		type: AUTH_LOGIN_REJECTED,
+		type: AUTH_ACTIONS.AUTH_LOGIN_REJECTED,
 		payload: error
 	}
 }
 
 export const loginOK = () => {
 	return {
-		type: AUTH_LOGIN_FULFILLMENT
+		type: AUTH_ACTIONS.AUTH_LOGIN_FULFILLMENT
 	}
 }

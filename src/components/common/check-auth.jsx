@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { auth } from '../../lib/firebase';
 import { Auth } from '../../lib/auth';
+import { setUserAlreadyAuthenticated } from '../../actions/auth';
 
 const AuthManager = Auth();
 
@@ -20,7 +21,7 @@ export default function (ComposedComponent) {
 		checkAuthenticatedUser(props) {
 			const userRecentlyAuthenticatd = props.authenticated;
 			const userAlreadyAuthenticatd = auth.currentUser;
-			console.log(userAlreadyAuthenticatd, !!userRecentlyAuthenticatd, AuthManager.checkUserLocalStorage());
+			// CHECK STORE AUTHENTICATED FLAG , FIREBASE AUTH API AND LOCALSTORAGE FOR AN ALREADY AUTHENTICATED USER
 			return (userAlreadyAuthenticatd || !!userRecentlyAuthenticatd || AuthManager.checkUserLocalStorage())
 		}
 
@@ -37,7 +38,6 @@ export default function (ComposedComponent) {
 		}
 
 		render() {
-			console.log(this.state);
 			if (this.state.authenticated) {
 				return <Redirect to='/lobby' />;
 			} else {
