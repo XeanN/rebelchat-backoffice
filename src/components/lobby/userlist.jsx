@@ -8,11 +8,25 @@ export class UserList extends React.Component {
 
 	generateList(clients) {
 		const arr = [];
+		const mclients = [];
 		Object.keys(clients).forEach((key) => {
+			mclients.push(
+				{
+					key,
+					...clients[key]
+				}
+			)
+
+		});
+		const sortclients = mclients.sort(function (a, b) {
+			return b.lastActivity - a.lastActivity;
+		});
+
+		sortclients.forEach((client) =>{
 			arr.push(
-				<li key={key}>
-					<a id={key} href = "#" >
-						{clients[key].email}
+				<li key={client.key}>
+					<a id={client.key} href = "#" >
+						{client.email}
 					</a>
 				</li>
 			)
