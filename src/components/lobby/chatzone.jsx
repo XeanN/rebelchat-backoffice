@@ -4,11 +4,13 @@ import { Alert } from 'reactstrap';
 import { auth } from '../../lib/firebase';
 import { watchMessagesAddedEvent } from '../../actions/messages';
 
-class ChatZone extends React.Component {
+export class ChatZone extends React.Component {
 
 	constructor(props) {
 		super(props);
 	}
+
+	//TODO: ADD THE CHILD_EVENT HERE BASE ON CLIENT KEY
 
 	render() {
 
@@ -21,17 +23,6 @@ class ChatZone extends React.Component {
 			</div>
 		)
 	}
+
 };
 
-const mapStateToProps = state => ({
-	selectedClient: state.client.selected
-});
-
-const mapDispatchToProps = dispatch => {
-	watchMessagesAddedEvent(dispatch);
-	return {
-
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatZone);
