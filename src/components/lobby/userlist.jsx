@@ -1,4 +1,5 @@
 import React from 'react';
+import { Tooltip } from 'reactstrap';
 
 export class UserList extends React.Component {
 
@@ -27,6 +28,15 @@ export class UserList extends React.Component {
 		});
 	}
 
+	prepareEmail(email) {
+		const tokens = email.split('@');
+		return `@${tokens[0]}`;
+	}
+
+	getTooltipText(client) {
+		return `${client.email} - ${client.name}`;
+	}
+
 	generateList(clients) {
 		const arr = [];
 		const { loadingClients } = this.props;
@@ -43,9 +53,9 @@ export class UserList extends React.Component {
 				const sortclients = this.sortClientsByLasActivity(mclients);
 				sortclients.forEach((client) =>{
 					arr.push(
-						<li key={client.key}>
+						<li key={client.key} className="client" title={this.getTooltipText(client)}>
 							<a id={client.key} href = "#">
-								{client.email}
+								{this.prepareEmail(client.email)}
 							</a>
 						</li>
 					)
