@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { logout } from '../actions/auth';
 import { toogleLobbySidebar } from '../actions/ui';
-import { watchClientAddedEvent, clientSelected } from '../actions/client';
+import { watchClientAddedEvent, setClientSelected } from '../actions/client';
 import { bindActionCreators } from 'redux';
 import { NavBar } from '../components/lobby/navbar';
 import { UserList } from '../components/lobby/userlist';
@@ -23,11 +23,16 @@ class LobbyContainer extends React.Component {
 					clients={this.props.clients}
 					sidebarCssClass={this.props.sidebarCssClass}
 					loadingClients={this.props.loadingClients}
-					clientSelected={this.props.clientSelected}
+					setClientSelected={this.props.setClientSelected}
 				/>
 				<div id="lobby-content">
-					<NavBar logout={this.props.logout} toogleLobbySidebar={this.props.toogleLobbySidebar}/>
-					<ChatZone selectedClient={this.props.selectedClient}/>
+					<NavBar
+						logout={this.props.logout}
+						toogleLobbySidebar={this.props.toogleLobbySidebar}
+					/>
+					<ChatZone
+						selectedClient={this.props.selectedClient}
+					/>
 				</div>
 			</div>
 		);
@@ -47,7 +52,7 @@ const mapDispatchToProps = dispatch => {
 		{
 			logout,
 			toogleLobbySidebar,
-			clientSelected
+			setClientSelected
 		}, dispatch
 	)
 }

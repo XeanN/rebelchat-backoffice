@@ -8,7 +8,7 @@ export function watchClientAddedEvent(dispatch) {
 	});
 }
 
-export const  clientSelected = (clientKey) => {
+export const  setClientSelected = (clientKey) => {
 	return dispatch => {
 		return dispatch({
 			type: CLIENT_ACTIONS.CLIENT_SELECTED,
