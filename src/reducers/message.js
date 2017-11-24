@@ -17,6 +17,11 @@ export default function ClientReducer(state = defaultState, action) {
 					[action.payload.key]: action.payload.message
 				}
 			}
+		case MESSAGES_ACTIONS.CLEAN_MESSAGES:
+			return {
+				...state,
+				list: null
+			}
 		default:
 			return state;
 	}

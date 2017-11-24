@@ -34,6 +34,7 @@ class LobbyContainer extends React.Component {
 					<ChatZone
 						selectedClient={this.props.selectedClient}
 						watchMessagesAddedEvent={this.props.watchMessagesAddedEvent}
+						messages={this.props.messages}
 					/>
 				</div>
 			</div>
@@ -45,7 +46,8 @@ const mapStateToProps = state => ({
 	sidebarCssClass: state.ui.sidebarCssClass,
 	clients: state.client.list,
 	loadingClients: state.client.loading,
-	selectedClient: state.client.selected
+	selectedClient: state.client.selected,
+	messages: state.message.list
 });
 
 const mapDispatchToProps = dispatch => {

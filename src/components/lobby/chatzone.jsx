@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from "react-redux";
 import { Alert } from 'reactstrap';
 import { auth } from '../../lib/firebase';
 import { watchMessagesAddedEvent } from '../../actions/messages';
+import { Message } from '../../components/lobby/message';
 import '../../styles/components/chatZone.css';
 
 export class ChatZone extends React.Component {
@@ -19,31 +19,28 @@ export class ChatZone extends React.Component {
 		}
 	}
 
-	render() {
+	renderMessages() {
+		const arrmessages = [];
+		const { messages } = this.props;
+		Object.keys(messages).forEach((key) => {
+			const message = messages[key];
+			message.key = key;
+			arrmessages.push(
+				<Message message={message}/>
+			)
+		});
+		return arrmessages;
+	}
 
-		// TODO: GET CURRENT USER FROM LOCALSTORAGE
+	render() {
+		const messages = this.renderMessages();
 		return (
 			<div id="chat-zone-container" className="container">
 				<Alert color="light">
 					Welcome Admin, This is your space. You can see the basic backoffice's features and configure it in different ways
 				</Alert>
 					<ul className="messages">
-						<li className="message left appeared">
-							<div className="avatar"></div>
-							<div className="text_wrapper">
-								<div className="text">
-									AAAAAAAAA
-								</div>
-							</div>
-						</li>
-						<li className="message right appeared">
-							<div className="avatar"></div>
-							<div className="text_wrapper">
-								<div className="text">
-									AAAAAAAAA
-									</div>
-							</div>
-						</li>
+						{ messages }
 					</ul>
 			</div>
 		)

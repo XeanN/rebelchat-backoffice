@@ -1,6 +1,4 @@
 import { combineReducers } from "redux";
-import users from "./usersReducer";
-import messages from "./messagesReducer";
 import auth from './auth';
 import client from './client';
 import ui from './ui';
@@ -11,7 +9,6 @@ export default combineReducers(
 	{
 		notifications,
 		client,
-		messages,
 		auth,
 		ui,
 		message
