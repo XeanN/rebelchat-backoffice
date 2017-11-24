@@ -2,13 +2,11 @@ import React from 'react';
 import { connect } from "react-redux";
 import { logout } from '../actions/auth';
 import { toogleLobbySidebar } from '../actions/ui';
-import { watchClientAddedEvent, setClientSelected } from '../actions/client';
 import { watchMessagesAddedEvent } from '../actions/messages';
 import { bindActionCreators } from 'redux';
 import { NavBar } from '../components/lobby/navbar';
-import { UserList } from '../components/lobby/userlist';
+import ClientListContainer  from '../containers/clientlist';
 import { ChatZone } from '../components/lobby/chatzone';
-import { FaCog, FaSignOut } from 'react-icons/lib/fa';
 import '../styles/containers/lobby.css';
 
 class LobbyContainer extends React.Component {
@@ -20,12 +18,7 @@ class LobbyContainer extends React.Component {
 	render() {
 		return (
 			<div className="wrapper">
-				<UserList
-					clients={this.props.clients}
-					sidebarCssClass={this.props.sidebarCssClass}
-					loadingClients={this.props.loadingClients}
-					setClientSelected={this.props.setClientSelected}
-				/>
+				<ClientListContainer />
 				<div id="lobby-content">
 					<NavBar
 						logout={this.props.logout}
@@ -51,12 +44,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-	watchClientAddedEvent(dispatch);
 	return bindActionCreators(
 		{
 			logout,
 			toogleLobbySidebar,
-			setClientSelected,
 			watchMessagesAddedEvent
 		}, dispatch
 	)
