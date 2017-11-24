@@ -41,9 +41,12 @@ export default function (ComposedComponent) {
 		render() {
 			const { authenticated } = this.state;
 			if (authenticated) {
+				// FIXME: THIS MIGHT HANDLE BETTER
 				// IF THE USER IS AUTHENTICATED IN THE LOCALSTORAGE OR FIREBASE API THE AUTHENTICATED FLAG ON TH STORE IS FALSE
 				// SET THE AUTHENTICATED FLAG AS TRUE IF THERE IS AN AUTHENTICATED USER DOESNT MATTER THE AUTHENTICATION METHOD
-				this.props.setUserAlreadyAuthenticated();
+				if (!this.props.authenticated ) {
+					this.props.setUserAlreadyAuthenticated();
+				}
 				return <ComposedComponent {...this.props} />;
 			} else {
 				return <Redirect to='/login' />;
