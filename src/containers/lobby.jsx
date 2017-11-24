@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { logout } from '../actions/auth';
 import { toogleLobbySidebar } from '../actions/ui';
 import { watchClientAddedEvent, setClientSelected } from '../actions/client';
+import { watchMessagesAddedEvent } from '../actions/messages';
 import { bindActionCreators } from 'redux';
 import { NavBar } from '../components/lobby/navbar';
 import { UserList } from '../components/lobby/userlist';
@@ -32,6 +33,7 @@ class LobbyContainer extends React.Component {
 					/>
 					<ChatZone
 						selectedClient={this.props.selectedClient}
+						watchMessagesAddedEvent={this.props.watchMessagesAddedEvent}
 					/>
 				</div>
 			</div>
@@ -52,7 +54,8 @@ const mapDispatchToProps = dispatch => {
 		{
 			logout,
 			toogleLobbySidebar,
-			setClientSelected
+			setClientSelected,
+			watchMessagesAddedEvent
 		}, dispatch
 	)
 }

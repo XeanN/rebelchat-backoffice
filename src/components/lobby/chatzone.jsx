@@ -10,7 +10,13 @@ export class ChatZone extends React.Component {
 		super(props);
 	}
 
-	//TODO: ADD THE CHILD_EVENT HERE BASE ON CLIENT KEY
+	componentDidMount() {
+		if (this.props.selectedClient ) {
+			this.props.watchMessagesAddedEvent(
+				this.props.selectedClient
+			);
+		}
+	}
 
 	render() {
 
