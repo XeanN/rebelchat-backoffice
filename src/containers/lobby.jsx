@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { logout } from '../actions/auth';
-import { toogleLobbySidebar } from '../actions/ui';
 import { watchMessagesAddedEvent } from '../actions/messages';
 import { bindActionCreators } from 'redux';
-import { NavBar } from '../components/lobby/navbar';
 import ClientListContainer  from '../containers/clientlist';
+import NavBarContainer  from '../containers/navbar';
 import { ChatZone } from '../components/lobby/chatzone';
 import '../styles/containers/lobby.css';
 
@@ -20,10 +18,7 @@ class LobbyContainer extends React.Component {
 			<div className="wrapper">
 				<ClientListContainer />
 				<div id="lobby-content">
-					<NavBar
-						logout={this.props.logout}
-						toogleLobbySidebar={this.props.toogleLobbySidebar}
-					/>
+					<NavBarContainer/>
 					<ChatZone
 						selectedClient={this.props.selectedClient}
 						watchMessagesAddedEvent={this.props.watchMessagesAddedEvent}
@@ -46,8 +41,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
 	return bindActionCreators(
 		{
-			logout,
-			toogleLobbySidebar,
 			watchMessagesAddedEvent
 		}, dispatch
 	)

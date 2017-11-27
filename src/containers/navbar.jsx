@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { logout } from '../actions/auth';
+import { toogleLobbySidebar } from '../actions/ui';
+import { bindActionCreators } from 'redux';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { FaCog, FaSignOut } from 'react-icons/lib/fa';
 
-export class NavBar extends React.Component {
+class NavBarContainer extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -48,3 +52,14 @@ export class NavBar extends React.Component {
 	}
 };
 
+
+const mapDispatchToProps = dispatch => {
+	return bindActionCreators(
+		{
+			logout,
+			toogleLobbySidebar,
+		}, dispatch
+	)
+}
+
+export default connect(null, mapDispatchToProps)(NavBarContainer);
