@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { logout } from '../actions/auth';
 import { toogleLobbySidebar } from '../actions/ui';
+import { watchClientAddedEvent } from '../actions/client';
 import { bindActionCreators } from 'redux';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { FaCog, FaSignOut } from 'react-icons/lib/fa';
@@ -54,6 +55,8 @@ class NavBarContainer extends React.Component {
 
 
 const mapDispatchToProps = dispatch => {
+	console.log('test');
+	watchClientAddedEvent(dispatch);
 	return bindActionCreators(
 		{
 			logout,

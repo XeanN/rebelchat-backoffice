@@ -3,7 +3,7 @@ import { Alert } from 'reactstrap';
 import { connect } from "react-redux";
 import { watchMessagesAddedEvent } from '../actions/messages';
 import { bindActionCreators } from 'redux';
-import { Message } from '../components/lobby/chatzone';
+import { Message } from '../components/lobby/message';
 import '../styles/components/chatZone.css';
 
 class ChatZoneContainer extends React.Component {

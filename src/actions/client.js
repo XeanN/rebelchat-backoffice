@@ -5,6 +5,7 @@ import * as MESSAGE_ACTIONS from '../constants/actions/messages';
 
 export const watchClientAddedEvent = (dispatch) => {
 	database.ref('/clients').on('child_added', (snap) => {
+		console.log('--->', snap.key)
 		dispatch(getClientAdded(snap.key, snap.val()));
 	});
 }
