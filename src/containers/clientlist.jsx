@@ -56,7 +56,7 @@ class ClientListContainer extends React.Component {
 				sortclients.forEach((client) => {
 					arr.push(
 						<li key={client.key} className="client" title={this.getTooltipText(client)}>
-							<a id={client.key} href="#" onClick={() => this.props.setClientSelected(client.key)}>
+							<a id={client.key} href="#" onClick={() => this.props.setClientSelected(client)}>
 								{this.prepareEmail(client.email)}
 							</a>
 						</li>
