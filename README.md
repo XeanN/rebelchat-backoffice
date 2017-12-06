@@ -17,15 +17,42 @@ git
 a text editor
 a firebase project
 
+You can install these dependencies on Ubuntu from the official repository by running:
+
+sudo apt-get update
+
+sudo apt-get install nodejs
+
+sudo apt-get install npm
+
+npm install -g yarn
+
+sudo apt-get install git
+
+git config --global user.name "Sample Name"
+git config --global user.email "email@example.com"
+
+If you are using windows or mac you could install the requirements from their officiel websites, download the setup and follow the instructions:
+
+npm & nodejs: https://nodejs.org/en/download/
+yarn: https://yarnpkg.com/en/docs/install
+git: https://git-scm.com/downloads
+
 1)
 
 Create a firebase project on:
 
 https://console.firebase.google.com/
 
+![Alt text](/introimg/1.jpg?raw=true "1.png")
+
 2)
 
 Get the required project information in the firebase console by clicking on "Add Firebase to your web app"
+
+![Alt text](/introimg/2.jpg?raw=true "2.png")
+
+![Alt text](/introimg/3.jpg?raw=true "3.png")
 
 The information obtained on this step will be used on step 4.
 
