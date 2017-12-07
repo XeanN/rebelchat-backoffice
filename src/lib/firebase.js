@@ -11,6 +11,8 @@ firebase.initializeApp(config);
 
 export const database = firebase.database();
 
+export const msgRef = database.ref("messages");
+
 export const auth = firebase.auth();
 
 export const messaging = firebase.messaging();

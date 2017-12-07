@@ -8,6 +8,9 @@ export const watchClientAddedEvent = (dispatch) => {
 		console.log('--->', snap.key)
 		dispatch(getClientAdded(snap.key, snap.val()));
 	});
+	/*database.ref('/clients').on('value', (snap) => {
+		dispatch(getClientList(snap));
+	});*/
 }
 
 export const setClientSelected = (clientKey) => {
@@ -22,6 +25,16 @@ export const setClientSelected = (clientKey) => {
 	}
 }
 
+function getClientList(snap){
+	var arr = [];
+	snap.forEach(element => {
+		arr[element.key] = element.val();
+	});
+	return {
+		type: "CLIENT_LIST_UPDATED",
+		payload: arr
+	};
+}
 
 function getClientAdded(key, client) {
 	return {

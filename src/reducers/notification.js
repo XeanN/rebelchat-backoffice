@@ -1,3 +1,5 @@
+import { setClientSelected } from "../actions/client";
+
 const defaultState = {
     webNotifications: true,
     soundNotifications: true
@@ -14,7 +16,13 @@ export default function NotificationReducer(state = defaultState, action) {
                 };
             break;
             default:
-                setLocalNotifications(1, 1);
+                //TODO: move localStorage settings to redux.
+                if(typeof state.webNotifications !== 'undefined'){
+                    setClientSelected(state.webNotifications,
+                    state.soundNotifications);
+                }else{
+                    setLocalNotifications(1, 1);
+                }
                 return state;
         }
 }

@@ -193,3 +193,26 @@ ul ul a {
 		display: inline;
 	}
 }
+/*First client animation*/
+/*li.client:first-child a {
+	-webkit-animation-name: pop;
+    -webkit-animation-duration: 1s;
+    animation-name: pop;
+    animation-duration: 1s;
+}
+@-webkit-keyframes pop {
+    0% {color: rgba(255, 255, 255, 0.7);}
+	50% {color: white;text-shadow: 0 0 0.2em #8F7}
+	100% {color: rgba(255, 255, 255, 0.7)}
+}
+@keyframes pop {
+    0% {color: rgba(255, 255, 255, 0.7);}
+	50% {color: white;text-shadow: 0 0 0.2em #8F7}
+	100% {color: rgba(255, 255, 255, 0.7)}
+}*/
+
+.selected-client {
+	color: rgba(255, 255, 255, 0.9);
+	background: rgba(0, 0, 0, 0.356);
+}
+  

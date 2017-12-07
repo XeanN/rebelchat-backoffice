@@ -23,6 +23,12 @@ export default function ClientReducer(state = defaultState, action) {
 				...state,
 				selected: action.payload
 			}
+		case "CLIENT_LIST_UPDATED":
+			return {
+				...state,
+				loading: false,
+				list: action.payload
+			}
 		default:
 			return state;
 	}
