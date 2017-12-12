@@ -1,4 +1,5 @@
-import { database } from '../lib/firebase';
+import { database, msgRef, reEstablishMessageEvents } from '../lib/firebase';
+import  store  from '../store';
 import Notifications from 'react-notification-system-redux';
 import * as CLIENT_ACTIONS from '../constants/actions/client';
 import * as MESSAGE_ACTIONS from '../constants/actions/messages';
@@ -15,6 +16,11 @@ export const watchClientAddedEvent = (dispatch) => {
 
 export const setClientSelected = (clientKey) => {
 	return dispatch => {
+		var prevClient = store.getState().client.selected;
+		if(prevClient != null){
+			msgRef.child(prevClient.key).off('child_added');
+			reEstablishMessageEvents(prevClient.key);
+		}
 		dispatch({
 			type: MESSAGE_ACTIONS.MESSAGES_CLEAN_MESSAGES
 		});

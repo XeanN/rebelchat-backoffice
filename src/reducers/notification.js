@@ -18,8 +18,7 @@ export default function NotificationReducer(state = defaultState, action) {
             default:
                 //TODO: move localStorage settings to redux.
                 if(typeof state.webNotifications !== 'undefined'){
-                    setClientSelected(state.webNotifications,
-                    state.soundNotifications);
+                    //setClientSelected(state.webNotifications,state.soundNotifications);
                 }else{
                     setLocalNotifications(1, 1);
                 }

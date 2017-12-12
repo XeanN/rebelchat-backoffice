@@ -11,11 +11,30 @@ firebase.initializeApp(config);
 
 export const database = firebase.database();
 
-export const msgRef = database.ref("messages");
+export const msgRef = firebase.database().ref("messages");
 
 export const auth = firebase.auth();
 
 export const messaging = firebase.messaging();
+
+export const reEstablishMessageEvents = function (client) {
+	database.ref(`messages/${client}/`).on("child_added",function(snap){
+		var key = snap.key,
+		val = snap.val(),
+		createdAt = val.createdAt,
+		message = val.message,
+		source = val.source;
+		if(source == "CLIENT"){
+			var now = new Date(),
+				then  = new Date(createdAt),
+				diff = now - then;
+			if(diff < 10*1000){
+				sendNotification(localStorage.getItem("TOKEN"));
+				playAudio();
+			}
+		}
+	});
+};
 
 messaging.requestPermission().then(function(){
 	return  messaging.getToken();
@@ -23,22 +42,8 @@ messaging.requestPermission().then(function(){
 	database.ref("messages").on('child_added',function(snapshot){
 		var client = snapshot.key,
 		val = snapshot.val();
-		database.ref(`messages/${client}/`).on("child_added",function(snap){
-			var key = snap.key,
-			val = snap.val(),
-			createdAt = val.createdAt,
-			message = val.message,
-			source = val.source;
-			if(source == "CLIENT"){
-				var now = new Date(),
-					then  = new Date(createdAt),
-					diff = now - then;
-				if(diff < 60*1000){
-					sendNotification(token);
-					playAudio();
-				}
-			}
-		});
+		localStorage.setItem("TOKEN",token);
+		reEstablishMessageEvents(client);
 	});
 }).catch(function(err){
 	console.log('You do not have permission for web notifications.');
