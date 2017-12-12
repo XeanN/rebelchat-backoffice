@@ -10,7 +10,7 @@ export const Message  =  (props ) =>  {
 		<li className={cssclass}>
 			<img className="avatar" src={src} />
 			<div className="text_wrapper">
-				<div className="text">
+				<div className="text" style={{wordWrap: 'break-word'}}>
 					{message.message}
 				</div>
 			</div>
