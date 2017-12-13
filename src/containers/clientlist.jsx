@@ -41,7 +41,7 @@ class ClientListContainer extends React.Component {
 
 	generateList(clients) {
 		const arr = [];
-		const { loadingClients } = this.props;
+		const { loadingClients, selectedClient } = this.props;
 		if (loadingClients) {
 			return (
 				// TODO: MAKE A BETTER LOADING STATE
@@ -55,12 +55,12 @@ class ClientListContainer extends React.Component {
 				const sortclients = this.sortClientsByLasActivity(mclients);
 				sortclients.forEach((client) => {
 					arr.push(
-						<li key={client.key} className="client" title={this.getTooltipText(client)}>
-							<a id={client.key} href="#" onClick={() => this.props.setClientSelected(client.key)}>
+						<li key={client.key} className={selectedClient != null && selectedClient.key == client.key? "client selected-client":"client"} title={this.getTooltipText(client)}>
+							<a id={client.key} href="#" onClick={() => this.props.setClientSelected(client)}>
 								{this.prepareEmail(client.email)}
 							</a>
 						</li>
-					)
+					);
 				});
 			}
 			return arr;
@@ -89,6 +89,7 @@ const mapStateToProps = state => ({
 	sidebarCssClass: state.ui.sidebarCssClass,
 	clients: state.client.list,
 	loadingClients: state.client.loading,
+	selectedClient: state.client.selected
 });
 
 const mapDispatchToProps = dispatch => {
