@@ -94,7 +94,8 @@ a, a:hover, a:focus {
 	top: 81px;
 	bottom: 0;
 	left: 0;
-	right: 0
+	right: 0;
+	overflow-y: auto
 }
 
 #sidebar ul p {
@@ -215,4 +216,18 @@ ul ul a {
 	color: rgba(255, 255, 255, 0.9);
 	background: rgba(0, 0, 0, 0.356);
 }
-  
+
+.rebelchat-hr {
+	margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    text-align: center;
+    height: 0px;
+    line-height: 0px
+}
+
+.rebelchat-hr-title {
+	background: #fafafa;
+	color: rgba(0, 0, 0, 0.5)
+}
