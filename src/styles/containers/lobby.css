@@ -117,6 +117,27 @@ a, a:hover, a:focus {
 	color: #fff;
 	background: #6d7fcc;
 }
+
+#sidebar .message-counter {
+	float: right;
+	color: white
+}
+
+.msg-time {
+	position: absolute;
+	right: 7px;
+	bottom: 5px;
+	font-size: 10px
+}
+
+.message.right .msg-time {
+	color: #45829b
+}
+
+.message.left .msg-time {
+	color: #c48843
+}
+
 ul ul a {
 	font-size: 0.9em !important;
 	padding-left: 30px !important;

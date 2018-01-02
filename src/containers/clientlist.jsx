@@ -59,6 +59,9 @@ class ClientListContainer extends React.Component {
 							<li key={client.key} className={selectedClient != null && selectedClient.key == client.key? "client selected-client":"client"} title={this.getTooltipText(client)}>
 								<a id={client.key} href="#" onClick={() => this.props.setClientSelected(client)}>
 									{this.prepareEmail(client.email)}
+									{client.unread_messages > 0 &&
+										<span className="message-counter">({client.unread_messages})</span>
+      								}
 								</a>
 							</li>
 						);

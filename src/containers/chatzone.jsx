@@ -61,8 +61,9 @@ class ChatZoneContainer extends React.Component {
 			return ('');
 		}
 		var date = false,
-			timestamp;
-		Object.keys(messages).forEach((key) => {
+			timestamp,
+			msgs = Object.keys(messages);
+		msgs.forEach((key) => {
 			const message = messages[key];
 			if(!date){//If date hasn't been set yet
 				timestamp = message.createdAt;
@@ -90,7 +91,8 @@ class ChatZoneContainer extends React.Component {
 				<Message key={message.key} message={message} />
 			)
 		});
-		return arrmessages;
+		console.log("messages: OJO ",arrmessages);
+		return arrmessages;//.reverse();
 	}
 
 	render() {
