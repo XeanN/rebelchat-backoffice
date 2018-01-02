@@ -9,17 +9,20 @@ export const watchClientAddedEvent = (dispatch) => {
 		console.log('--->', snap.key)
 		dispatch(getClientAdded(snap.key, snap.val()));
 	});
-	/*database.ref('/clients').on('value', (snap) => {
+	database.ref('/clients').on('value', (snap) => {
 		dispatch(getClientList(snap));
-	});*/
+		/*snap.forEach(client => {
+			dispatch(getClientAdded(client.key, client.val()));
+		});*/
+	});
 }
 
 export const setClientSelected = (clientKey) => {
 	return dispatch => {
 		var prevClient = store.getState().client.selected;
 		if(prevClient != null){
-			msgRef.child(prevClient.key).off('child_added');
-			reEstablishMessageEvents(prevClient.key);
+			msgRef.child(prevClient.key).off('value');//just changed child_added to value
+			//reEstablishMessageEvents(prevClient.key);
 		}
 		dispatch({
 			type: MESSAGE_ACTIONS.MESSAGES_CLEAN_MESSAGES
@@ -36,6 +39,7 @@ function getClientList(snap){
 	snap.forEach(element => {
 		arr[element.key] = element.val();
 	});
+//	arr = arr.reverse();
 	return {
 		type: "CLIENT_LIST_UPDATED",
 		payload: arr

@@ -14,7 +14,7 @@ export default function ClientReducer(state = defaultState, action) {
 				loading: false,
 				list: {
 					...state['list'],
-					[action.payload.key]: action.payload.message
+					[action.payload.key]: action.payload.message,
 				}
 			};
 		break;
@@ -22,6 +22,12 @@ export default function ClientReducer(state = defaultState, action) {
 			return {
 				...state,
 				list: null
+			};
+		break;
+		case "MESSAGE_LIST_UPDATED":
+			return {
+				...state,
+				list: action.payload
 			};
 		break;
 		default:
